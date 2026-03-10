@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, Heart } from 'lucide-react';
+import { Menu, X, ChevronDown, Heart, Zap } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 const Navigation = () => {
@@ -8,10 +8,13 @@ const Navigation = () => {
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const location = useLocation();
 
+  // Neo-Brutalist Design Tokens
+  const brutalBorder = "border-[3px] border-black";
+  const brutalShadow = "shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]";
+  const brutalShadowLarge = "shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]";
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -20,8 +23,6 @@ const Navigation = () => {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Initiatives', path: '/program' },
-    // { name: 'Get Involved', path: '/support' },
-    // { name: 'Accountability', path: '/accountability' },
     { name: 'Contact Us', path: '/contact' },
   ];
 
@@ -32,21 +33,34 @@ const Navigation = () => {
   ];
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-md py-3' : 'bg-white py-5 border-b border-gray-100'}`}>
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'translate-y-2' : 'translate-y-0'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          {/* LOGO */}
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/assets/logo/Logo.png" alt="WAWU Logo" className="h-10 md:h-12 w-auto object-contain" />
+        <div className={`
+          bg-white ${brutalBorder} ${brutalShadowLarge} 
+          transition-all duration-300 px-6 py-3 flex justify-between items-center
+          ${isScrolled ? 'rounded-2xl mx-2' : 'rounded-none mt-4'}
+        `}>
+          
+          {/* LOGO AREA - Styled like a Game Logo */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <div className={`bg-[#FF00FF] p-1 ${brutalBorder} group-hover:rotate-6 transition-transform`}>
+               <img src="/assets/logo/Logo.png" alt="WAWU Logo" className="h-8 md:h-10 w-auto invert" />
+            </div>
+            <span className="font-black italic uppercase text-xl tracking-tighter hidden sm:block">WAWU</span>
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
-                className={`text-sm font-medium transition-colors hover:text-[#11698d] ${location.pathname === link.path ? 'text-[#11698d]' : 'text-gray-700'}`}
+                className={`
+                  px-3 py-1 text-xs font-black uppercase italic tracking-widest transition-all
+                  ${location.pathname === link.path 
+                    ? 'bg-[#FFDE03] ' + brutalBorder + ' ' + brutalShadow 
+                    : 'hover:text-[#FF00FF]'}
+                `}
               >
                 {link.name}
               </Link>
@@ -54,99 +68,28 @@ const Navigation = () => {
 
             {/* Services Dropdown */}
             <div
-              className="relative py-2"
+              className="relative"
               onMouseEnter={() => setServicesDropdownOpen(true)}
               onMouseLeave={() => setServicesDropdownOpen(false)}
             >
               <button
-                className={`flex items-center gap-1 text-sm font-medium transition-colors hover:text-[#11698d] cursor-pointer ${location.pathname?.startsWith('/services/') ? 'text-[#11698d]' : 'text-gray-700'}`}
+                className={`
+                  flex items-center gap-1 text-xs font-black uppercase italic tracking-widest px-3 py-1 transition-all
+                  ${location.pathname?.startsWith('/services/') ? 'bg-[#8BC34A] ' + brutalBorder : 'hover:text-[#FF00FF]'}
+                `}
               >
                 Services
-                <ChevronDown size={16} className={`transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={14} strokeWidth={3} className={`transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {servicesDropdownOpen && (
-                <>
-                  {/* Invisible bridge to prevent menu from closing when moving mouse to the dropdown */}
-                  <div className="absolute top-full left-0 w-full h-2" />
-                  
-                  <div className="absolute top-[calc(100%-4px)] left-0 w-56 bg-white border border-gray-100 rounded-lg shadow-xl overflow-hidden py-2 z-[60]">
-                    {servicesSubItems.map((item) => (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        onClick={() => setServicesDropdownOpen(false)}
-                        className={`block px-4 py-2 text-sm transition-colors hover:bg-gray-50 hover:text-[#11698d] ${location.pathname === item.path ? 'text-[#11698d] bg-gray-50' : 'text-gray-700'}`}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-            
-            <Link 
-              to="/support"
-              className="flex items-center gap-2 bg-[#11698d] text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-[#0c4e69] transition-colors shadow-sm ml-2"
-            >
-              <Heart size={16} />
-              Donate Now
-            </Link>
-          </nav>
-
-          {/* MOBILE MENU BUTTON */}
-          <div className="lg:hidden flex items-center gap-4">
-             <Link 
-              to="/support"
-              className="bg-[#11698d] text-white p-2 rounded-full text-sm font-medium hover:bg-[#0c4e69] transition-colors shadow-sm"
-            >
-              <Heart size={18} />
-            </Link>
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-gray-700 hover:text-[#11698d] p-1"
-            >
-              {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-lg px-4 pt-2 pb-6 max-h-[85vh] overflow-y-auto">
-          <div className="flex flex-col gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`px-4 py-3 rounded-md text-base font-medium ${location.pathname === link.path ? 'text-[#11698d] bg-gray-50' : 'text-gray-700 hover:bg-gray-50 hover:text-[#11698d]'}`}
-              >
-                {link.name}
-              </Link>
-            ))}
-
-            <div className="border-t border-gray-50 mt-1 pt-1">
-              <button
-                onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
-                className="flex items-center justify-between w-full px-4 py-3 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-md"
-              >
-                Services
-                <ChevronDown size={18} className={`transition-transform duration-200 ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {servicesDropdownOpen && (
-                <div className="flex flex-col gap-1 mt-1 ml-4 border-l-2 border-gray-100 pb-2">
+                <div className={`absolute top-full left-0 w-64 bg-white ${brutalBorder} ${brutalShadowLarge} mt-2 overflow-hidden z-[60]`}>
                   {servicesSubItems.map((item) => (
                     <Link
                       key={item.name}
                       to={item.path}
-                      onClick={() => {
-                        setMobileMenuOpen(false);
-                        setServicesDropdownOpen(false);
-                      }}
-                      className={`px-4 py-2 text-sm rounded-md ${location.pathname === item.path ? 'text-[#11698d] bg-gray-50' : 'text-gray-600 hover:bg-gray-50 hover:text-[#11698d]'}`}
+                      onClick={() => setServicesDropdownOpen(false)}
+                      className="block px-4 py-3 text-xs font-black uppercase hover:bg-black hover:text-white transition-colors border-b-2 border-black last:border-0"
                     >
                       {item.name}
                     </Link>
@@ -154,6 +97,56 @@ const Navigation = () => {
                 </div>
               )}
             </div>
+            
+            {/* ACTION BUTTON - Hero Style */}
+            <Link 
+              to="/support"
+              className={`
+                flex items-center gap-2 bg-[#FF00FF] text-white px-6 py-2 rounded-none 
+                ${brutalBorder} ${brutalShadow} 
+                text-xs font-black uppercase italic tracking-widest
+                hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all
+                ml-4
+              `}
+            >
+              <Zap size={16} fill="white" />
+              Donate
+            </Link>
+          </nav>
+
+          {/* MOBILE TOGGLE */}
+          <div className="lg:hidden flex items-center gap-3">
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className={`p-2 bg-[#FFDE03] ${brutalBorder} ${brutalShadow}`}
+            >
+              {mobileMenuOpen ? <X size={24} strokeWidth={3} /> : <Menu size={24} strokeWidth={3} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* MOBILE MENU - FULL SCREEN BRUTALISM */}
+      {mobileMenuOpen && (
+        <div className={`lg:hidden absolute top-full left-4 right-4 bg-white ${brutalBorder} ${brutalShadowLarge} mt-4 p-6 z-[100]`}>
+          <div className="flex flex-col gap-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-2xl font-black uppercase italic border-b-4 border-black pb-2"
+              >
+                {link.name}
+              </Link>
+            ))}
+            <Link 
+              to="/support"
+              onClick={() => setMobileMenuOpen(false)}
+              className={`bg-[#FF00FF] text-white p-4 text-center font-black uppercase italic text-xl ${brutalBorder}`}
+            >
+              Donate Now
+            </Link>
           </div>
         </div>
       )}
