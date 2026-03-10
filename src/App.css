@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+/* Custom styles */
+.App {
+  min-height: 100vh;
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center;
+}
+
+.navigation {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.navigation ul {
+  @apply flex justify-center gap-8 bg-gray-100 p-4 rounded-lg;
+}
+
+.navigation li {
+  @apply list-none relative;
+}
+
+.navigation a {
+  @apply text-gray-700 font-bold py-2 px-4 rounded transition-colors hover:bg-gray-200;
+}
+
+.program-button {
+  @apply text-gray-700 font-bold py-2 px-4 rounded transition-colors hover:bg-gray-200 bg-transparent border-none cursor-pointer flex items-center gap-1;
+}
+
+.arrow {
+  @apply transition-transform duration-300;
+}
+
+.arrow.rotate {
+  @apply rotate-180;
+}
+
+.dropdown-menu {
+  @apply absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-md overflow-hidden z-10;
+}
+
+.dropdown-menu li {
+  @apply block w-full text-left;
+}
+
+.dropdown-menu a {
+  @apply block py-2 px-4 text-gray-700 hover:bg-gray-100;
+}
+
+.page {
+  @apply min-h-[50vh] flex flex-col items-center justify-center;
+}
+
+.page h1 {
+  @apply mb-4 text-3xl font-bold text-gray-800;
+}
+
+.page p {
+  @apply text-lg text-gray-600;
+}

@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Instrument Serif", serif;
+  --font-sans: "Archivo", sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+}
+
+body {
+  @apply antialiased;
+}
+
+::selection {
+  @apply bg-[#11698d] text-white;
+}
