@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Programmes = () => {
   const navigate = useNavigate();
@@ -41,7 +42,12 @@ const Programmes = () => {
       
       {/* PAGE HEADER */}
       <section className="bg-white py-16 md:py-24 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
           <span className="inline-block py-1 px-3 rounded-full bg-[#11698d]/10 text-[#11698d] text-sm font-bold tracking-wider uppercase mb-4">
             Our Initiatives
           </span>
@@ -51,14 +57,21 @@ const Programmes = () => {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Through structured leagues and community programs, we are creating sustainable pathways for the next generation of football stars.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* INITIATIVES LIST */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           {initiatives.map((item, idx) => (
-            <div key={item.id} className={`flex flex-col ${idx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-16 items-center bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100`}>
+            <motion.div 
+              key={item.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col ${idx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-16 items-center bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100`}
+            >
               
               {/* Content Side */}
               <div className="flex-1 space-y-6">
@@ -95,21 +108,27 @@ const Programmes = () => {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* CTA SECTION */}
       <section className="py-20 bg-[#11698d] text-center px-4 mt-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Join India's Football Revolution</h2>
-        <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">Whether you're an athlete, a volunteer, or a partner, there's a place for you in our mission.</p>
-        <button 
-          onClick={() => navigate('/contact')}
-          className="bg-white text-[#11698d] px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg inline-flex items-center gap-2"
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
         >
-          Get Involved Today <ArrowRight size={20} />
-        </button>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Join India's Football Revolution</h2>
+          <p className="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">Whether you're an athlete, a volunteer, or a partner, there's a place for you in our mission.</p>
+          <button 
+            onClick={() => navigate('/contact')}
+            className="bg-white text-[#11698d] px-10 py-4 rounded-lg font-bold text-lg hover:bg-gray-50 transition-colors shadow-lg inline-flex items-center gap-2"
+          >
+            Get Involved Today <ArrowRight size={20} />
+          </button>
+        </motion.div>
       </section>
 
     </div>

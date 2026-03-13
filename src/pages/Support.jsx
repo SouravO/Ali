@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Heart, ShieldCheck, FileText, Landmark, QrCode, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Support = () => {
   useEffect(() => {
@@ -16,7 +17,12 @@ const Support = () => {
       
       {/* PAGE HEADER */}
       <section className="bg-white py-16 md:py-24 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
           <span className="inline-block py-1 px-3 rounded-full bg-[#11698d]/10 text-[#11698d] text-sm font-bold tracking-wider uppercase mb-4">
             Support Our Mission
           </span>
@@ -26,7 +32,7 @@ const Support = () => {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Your contribution helps us provide world-class training, education, and holistic support to talented young footballers from underserved communities.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* DONATION OPTIONS */}
@@ -35,7 +41,13 @@ const Support = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
             {/* Bank Transfer Card */}
-            <div className="lg:col-span-2 bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+            <motion.div 
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-2 bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100"
+            >
               <div className="flex items-center gap-4 mb-8">
                 <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
                   <Landmark className="text-[#11698d]" size={24} />
@@ -70,10 +82,16 @@ const Support = () => {
                 <CheckCircle2 size={16} className="text-green-500 shrink-0 mt-0.5" />
                 Please share a screenshot of the transaction at <strong>info@wawu.foundation</strong> or via WhatsApp at <strong>+91 9035140187</strong> so we can issue your tax receipt.
               </p>
-            </div>
+            </motion.div>
 
             {/* Accountability Summary */}
-            <div className="space-y-8">
+            <motion.div 
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
               <div className="bg-[#11698d] text-white p-8 md:p-10 rounded-3xl shadow-lg">
                 <h3 className="text-2xl font-bold mb-6 flex items-center gap-2">
                   <ShieldCheck size={28} /> Accountability
@@ -102,7 +120,7 @@ const Support = () => {
                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-4">QR Code Coming Soon</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -111,41 +129,57 @@ const Support = () => {
       {/* WHY DONATE */}
       <section className="py-20 bg-white border-y border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
             <h2 className="text-[#11698d] font-bold tracking-wider uppercase text-sm mb-3">Your Impact</h2>
             <h3 className="text-3xl md:text-5xl font-bold text-gray-900">How your donation helps</h3>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div className="space-y-4">
-              <h4 className="text-xl font-bold text-gray-900">Sponsor a Player</h4>
-              <p className="text-gray-600 leading-relaxed">Covers full-funded training, equipment, and professional coaching for one talented youth.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="text-xl font-bold text-gray-900">Nutrition & Health</h4>
-              <p className="text-gray-600 leading-relaxed">Ensures every player receives high-quality nutritional care and regular health screenings.</p>
-            </div>
-            <div className="space-y-4">
-              <h4 className="text-xl font-bold text-gray-900">Academic Support</h4>
-              <p className="text-gray-600 leading-relaxed">Funds school supplies, tutoring, and educational mentorship to ensure a balanced future.</p>
-            </div>
+            {[
+              { title: "Sponsor a Player", desc: "Covers full-funded training, equipment, and professional coaching for one talented youth." },
+              { title: "Nutrition & Health", desc: "Ensures every player receives high-quality nutritional care and regular health screenings." },
+              { title: "Academic Support", desc: "Funds school supplies, tutoring, and educational mentorship to ensure a balanced future." }
+            ].map((item, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.2 }}
+                className="space-y-4"
+              >
+                <h4 className="text-xl font-bold text-gray-900">{item.title}</h4>
+                <p className="text-gray-600 leading-relaxed">{item.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* FOOTER CTA */}
       <section className="py-20 text-center px-4">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Need more information?</h2>
-        <p className="text-gray-600 mb-10 max-w-xl mx-auto">Our team is available to discuss specific sponsorship packages and CSR collaborations.</p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-          <a href="mailto:info@wawu.foundation" className="inline-flex items-center gap-2 text-[#11698d] font-bold hover:underline">
-            info@wawu.foundation
-          </a>
-          <span className="hidden sm:inline text-gray-300">|</span>
-          <a href="tel:+91 9035140187" className="inline-flex items-center gap-2 text-[#11698d] font-bold hover:underline">
-            +91 9035140187
-          </a>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+        >
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">Need more information?</h2>
+          <p className="text-gray-600 mb-10 max-w-xl mx-auto">Our team is available to discuss specific sponsorship packages and CSR collaborations.</p>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a href="mailto:info@wawu.foundation" className="inline-flex items-center gap-2 text-[#11698d] font-bold hover:underline">
+              info@wawu.foundation
+            </a>
+            <span className="hidden sm:inline text-gray-300">|</span>
+            <a href="tel:+91 9035140187" className="inline-flex items-center gap-2 text-[#11698d] font-bold hover:underline">
+              +91 9035140187
+            </a>
+          </div>
+        </motion.div>
       </section>
 
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
   return (
@@ -8,17 +9,27 @@ const Contact = () => {
       {/* PAGE HEADER */}
       <section className="relative py-20 md:py-32 overflow-hidden bg-gray-900">
         {/* Background Image with Overlay */}
-        <div className="absolute inset-0 z-0">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.5 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0 z-0"
+        >
           <img 
             src="/assets/logo/contact.jpg" 
             alt="Contact Background" 
-            className="w-full h-full object-cover opacity-50"
+            className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/70 to-transparent" />
-        </div>
+        </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-3xl">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-3xl"
+          >
             <span className="inline-block py-1 px-4 rounded-full bg-[#11698d] text-white text-sm font-bold tracking-wider uppercase mb-6 shadow-lg">
               Get In Touch
             </span>
@@ -29,7 +40,7 @@ const Contact = () => {
             <p className="text-lg md:text-xl text-gray-300 max-w-2xl leading-relaxed font-medium">
               Have questions about our programs or want to support our mission? Reach out to our team, and we'll be happy to connect with you.
             </p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Decorative Element */}
@@ -42,7 +53,13 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
             
             {/* Contact Details */}
-            <div className="lg:col-span-5 space-y-12">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-5 space-y-12"
+            >
               <div>
                 <h3 className="text-3xl font-bold text-gray-900 mb-8">Reach Out</h3>
                 <p className="text-lg text-gray-600 leading-relaxed mb-10">
@@ -90,10 +107,16 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Contact Form */}
-            <div className="lg:col-span-7">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="lg:col-span-7"
+            >
                <div className="bg-white p-10 md:p-14 rounded-2xl shadow-xl border border-gray-100">
                  <h2 className="text-3xl font-bold text-gray-900 mb-8">Send us a message</h2>
                  
@@ -142,7 +165,7 @@ const Contact = () => {
                     </button>
                  </form>
                </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>

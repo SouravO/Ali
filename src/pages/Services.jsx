@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target, Shield, Users, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Services = () => {
   const navigate = useNavigate();
@@ -40,7 +41,12 @@ const Services = () => {
       
       {/* PAGE HEADER */}
       <section className="bg-white py-16 md:py-24 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+        >
           <span className="inline-block py-1 px-3 rounded-full bg-[#11698d]/10 text-[#11698d] text-sm font-bold tracking-wider uppercase mb-4">
             Our Service Ecosystem
           </span>
@@ -50,14 +56,21 @@ const Services = () => {
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Our structured programs provide young athletes with the holistic support they need to succeed in sports and in life.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* SERVICES LIST */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           {services.map((service, idx) => (
-            <div key={service.id} className={`flex flex-col ${idx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-16 items-center bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100`}>
+            <motion.div 
+              key={service.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8 }}
+              className={`flex flex-col ${idx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-16 items-center bg-white p-8 md:p-12 rounded-2xl shadow-sm border border-gray-100`}
+            >
               
               {/* Content Side */}
               <div className="flex-1 space-y-8">
@@ -100,14 +113,19 @@ const Services = () => {
                 </div>
               </div>
 
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
 
       {/* CTA SECTION */}
       <section className="py-20 bg-gray-100 border-t border-gray-200 mt-8">
-         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+         <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+         >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Ready to support our mission?</h2>
             <p className="text-lg text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed">
               Every contribution helps us provide better coaching, resources, and mentorship to young talents.
@@ -118,7 +136,7 @@ const Services = () => {
             >
               Get Involved
             </button>
-         </div>
+         </motion.div>
       </section>
 
     </div>
