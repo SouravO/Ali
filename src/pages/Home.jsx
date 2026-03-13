@@ -248,7 +248,7 @@ const GlobalBFSILanding = () => {
                     <input className="w-full bg-zinc-900 border-4 border-zinc-800 p-6 rounded-3xl font-black focus:border-[#ccff00] focus:text-[#ccff00] transition-all outline-none uppercase" placeholder="RAHUL@EXAMPLE.COM" />
                   </div>
                   <button className="w-full bg-[#ccff00] text-black p-8 rounded-3xl font-[1000] text-3xl uppercase flex items-center justify-center gap-4 hover:scale-[1.03] transition-transform active:scale-95 mt-10 shadow-[0_20px_50px_rgba(204,255,0,0.2)]">
-                    Enroll <MoveRight size={38} />
+                    Enroll: ₹9,339 <MoveRight size={38} />
                   </button>
                 </form>
               </div>
