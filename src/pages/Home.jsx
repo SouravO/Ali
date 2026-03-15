@@ -46,11 +46,14 @@ const GlobalBFSILanding = () => {
 
       {/* --- SECTION 1: THE HERO --- */}
       <section className="relative min-h-screen flex flex-col items-center justify-center z-10 p-4 md:p-6 pt-24 md:pt-20">
-        <img
-          src={homeLogo}
-          alt="WAWU Logo"
-          className="absolute top-2 left-2 md:top-8 md:left-8 w-24 md:w-48 h-auto object-contain"
-        />
+        <div className="absolute top-2 left-2 md:top-8 md:left-8 flex items-center gap-4">
+          <img
+            src={homeLogo}
+            alt="WAWU Logo"
+            className="w-24 md:w-48 h-auto object-contain"
+          />
+          <span className="montserrat-bold-green text-lg md:text-xl tracking-wide">BFSI Global Learning</span>
+        </div>
         <motion.div style={{ scale: heroScale }} className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           <div className="text-left order-2 lg:order-1">
@@ -60,7 +63,7 @@ const GlobalBFSILanding = () => {
               className="flex items-center gap-2 mb-4 md:mb-6"
             >
               <div className="h-[2px] w-8 md:w-12 bg-black"></div>
-              <span className="font-bold tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-sm uppercase">Global BFSI Excellence</span>
+              <span className="font-bold tracking-[0.2em] md:tracking-[0.3em] text-xs md:text-sm uppercase">Global BFSI Learning.</span>
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-[1000] leading-[0.9] uppercase mb-6 md:mb-8 tracking-tighter">
@@ -90,7 +93,7 @@ const GlobalBFSILanding = () => {
             <img 
               src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
               alt="Corporate Finance" 
-              className="relative z-10 w-full h-[300px] md:h-[500px] object-cover rounded-[30px] md:rounded-[40px] grayscale"
+              className="relative z-10 w-full h-[300px] md:h-[500px] object-cover rounded-[30px] md:rounded-[40px]"
             />
             <div className="absolute -bottom-6 -left-4 md:bottom-10 md:-left-10 bg-[#ccff00] p-4 md:p-8 rounded-2xl z-20 border-4 border-black">
               <p className="font-[1000] text-2xl md:text-4xl leading-none">98%</p>
@@ -155,7 +158,7 @@ const GlobalBFSILanding = () => {
             initial={{ y: 50, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }}
             className="bg-white text-black p-8 md:p-16 rounded-[40px] md:rounded-[60px] shadow-[-10px_10px_0px_0px_#ccff00] md:shadow-[-20px_20px_0px_0px_#ccff00]"
           >
-            <h3 className="text-3xl md:text-4xl font-[1000] uppercase mb-6 md:mb-8 leading-none">Claim Your Free <br/> Guidance</h3>
+            <h3 className="text-3xl md:text-4xl font-[1000] uppercase mb-6 md:mb-8 leading-none">Claim Your Free <br/> Career Counselling</h3>
             <div className="space-y-4 md:space-y-6">
                 <input 
                   name="name"
@@ -164,8 +167,8 @@ const GlobalBFSILanding = () => {
                   onChange={handleInputChange}
                 />
                 <input 
-                  name="phone"
-                  placeholder="WHATSAPP NUMBER" 
+                  name="phone"  
+                  placeholder="MOBILE NUMBER" 
                   className="form-ultra" 
                   onChange={handleInputChange}
                 />
@@ -190,13 +193,17 @@ const GlobalBFSILanding = () => {
       </section>
 
       {/* --- SECTION 4: THE ECOSYSTEM --- */}
-      <section className="py-16 md:py-24 bg-white overflow-hidden">
-        <p className="text-center font-black uppercase tracking-[0.5em] md:tracking-[1em] mb-10 md:mb-20 opacity-20 text-[10px] md:text-xs px-4">The Global Network</p>
-        <div className="flex flex-col gap-6 md:gap-10">
-          <Marquee velocity={40} direction="left" />
-          <Marquee velocity={35} direction="right" />
-        </div>
-      </section>
+      {/* --- SECTION 4: THE ECOSYSTEM --- */}
+<section className="py-16 md:py-24 bg-white overflow-hidden text-[#1a1a1a]">
+  <p className="text-center font-black uppercase tracking-[0.5em] md:tracking-[1em] mb-10 md:mb-20 opacity-20 text-[10px] md:text-xs px-4">
+    The Global Opportunities
+  </p>
+  <div className="flex flex-col gap-6 md:gap-10">
+    {/* Ensure the Marquee component doesn't have internal hardcoded colors */}
+    <Marquee velocity={40} direction="left" />
+    <Marquee velocity={35} direction="right" />
+  </div>
+</section>
 
       {/* --- SECTION 5: THE METHOD --- */}
       <section className="py-20 md:py-40 px-6 bg-[#f0f4f8]">
@@ -247,6 +254,7 @@ const GlobalBFSILanding = () => {
 
       {/* --- CUSTOM CSS --- */}
       <style jsx>{`
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap');
         .form-ultra {
           width: 100%;
           background: #f1f5f9;
@@ -266,6 +274,11 @@ const GlobalBFSILanding = () => {
           transform: translateY(-3px);
           box-shadow: 6px 6px 0px 0px #ccff00;
           background: white;
+        }
+        .montserrat-bold-green {
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 900;
+          color: #006400;
         }
       `}</style>
 
