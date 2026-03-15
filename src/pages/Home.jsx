@@ -49,7 +49,7 @@ const GlobalBFSILanding = () => {
         <img
           src={homeLogo}
           alt="WAWU Logo"
-          className="absolute top-6 left-6 md:top-8 md:left-8 w-32 md:w-48 h-auto object-contain"
+          className="absolute top-2 left-2 md:top-8 md:left-8 w-24 md:w-48 h-auto object-contain"
         />
         <motion.div style={{ scale: heroScale }} className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
