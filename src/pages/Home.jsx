@@ -51,15 +51,7 @@ const GlobalBFSILanding = () => {
               <span className="montserrat-bold-green text-base md:text-2xl lg:text-3xl tracking-wide uppercase text-left">
                 Global BFSI Learning
               </span>
-              <a
-                href="https://www.globalbfsilearning.com"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 text-xs md:text-sm font-bold text-zinc-700 break-all text-left mt-1"
-              >
-                <Globe size={14} />
-                www.globalbfsilearning.com
-              </a>
+             
             </div>
           </div>
         </div>
@@ -120,7 +112,7 @@ const GlobalBFSILanding = () => {
         <motion.div
           className="flex whitespace-nowrap"
           animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
+          transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
         >
           {[1, 2].map((group) => (
             <div key={group} className="flex items-center">
@@ -197,7 +189,7 @@ const GlobalBFSILanding = () => {
           </h2>
         </div>
         <div className="border-y-4 border-black py-12 bg-zinc-50">
-          <Marquee velocity={35} direction="left" />
+          <Marquee velocity={12} direction="left" />
         </div>
       </section>
 
@@ -271,6 +263,22 @@ const GlobalBFSILanding = () => {
                   className="text-lg md:text-xl font-black break-all hover:text-[#ccff00] transition-colors"
                 >
                   info@globalbfsilearning.com
+                </a>
+              </div>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="p-3 bg-white rounded-full text-black">
+                <Globe size={24} />
+              </div>
+              <div>
+                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Website</p>
+                <a
+                  href="https://www.globalbfsilearning.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-lg md:text-xl font-black break-all hover:text-[#ccff00] transition-colors"
+                >
+                  www.globalbfsilearning.com
                 </a>
               </div>
             </div>
