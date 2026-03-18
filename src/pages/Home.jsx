@@ -406,14 +406,7 @@ const GlobalBFSILanding = () => {
         © 2026 GLOBAL BFSI LEARNING. ALL RIGHTS RESERVED.
       </p>
       
-      <div className="flex gap-10">
-        {['Privacy Policy', 'Terms of Service'].map((item) => (
-          <span key={item} className="relative cursor-pointer text-zinc-500 font-black text-[10px] uppercase tracking-[0.2em] hover:text-white transition-colors group">
-            {item}
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#ccff00] transition-all group-hover:w-full" />
-          </span>
-        ))}
-      </div>
+     
     </div>
   </div>
 </section>
