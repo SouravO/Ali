@@ -40,13 +40,18 @@ const GlobalBFSILanding = () => {
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#ccff00]/5 blur-[120px] rounded-full" />
 
         <header className="absolute top-0 left-0 w-full p-6 md:p-10 pb-8 md:pb-10 z-50">
-          <div className="max-w-7xl mx-auto flex items-center gap-4">
-            <img src={homeLogo} alt="Logo" className="w-32 md:w-48 h-auto object-contain brightness-110" />
-            <div className="h-10 w-[1px] bg-white/20 mx-4" />
-            <span className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase italic leading-none">
-              Global <span className="text-[#ccff00]">BFSI</span> Learning
-            </span>
-          </div>
+         <div className="max-w-7xl mx-auto flex items-center gap-0">
+  {/* The Logo */}
+  <img src={homeLogo} alt="Logo" className="w-32 md:w-48 h-auto object-contain brightness-110" />
+  
+  {/* The Divider: -ml-4 pulls this line LEFT into the logo's empty space */}
+  <div className="h-14 w-[0px] bg-white/20 -ml-4" />
+  
+  {/* The Text: -ml-2 pulls the text closer to the line */}
+  <span className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase italic leading-none -ml-2">
+    Global <span className="text-[#ccff00]">BFSI</span> Learning
+  </span>
+</div>
         </header>
 
         <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10">
@@ -98,7 +103,7 @@ const GlobalBFSILanding = () => {
       {/* --- SECTION 2: THE MOVING SLIDER --- */}
       <div className="bg-white py-8 border-y border-white/10 z-30 relative rotate-[-1deg] scale-105 shadow-[0_0_50px_rgba(204,255,0,0.2)]">
         <div className="marquee-wrapper">
-          <div className="marquee-track" style={{ animationDuration: '8s' }}>
+          <div className="marquee-track" style={{ animationDuration: '3s' }}>
             {[1, 2, 3, 4].map((i) => (
               <div key={i} className="flex items-center marquee-group">
                 {["Mentor by Industry Experts", "Job-Ready Preparation", "Resume That Gets Interview Calls", "Real Mock Interviews", "Continuous Career Guidance"].map((text, idx) => (
@@ -190,26 +195,27 @@ const GlobalBFSILanding = () => {
   <div className="max-w-7xl mx-auto px-6 mb-20 relative z-30">
     <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
       <div className="relative">
+        
         {/* Main Heading */}
-        <h2 className="text-5xl md:text-8xl font-[1000] uppercase leading-[0.85] tracking-tighter italic">
-          Global Career <br/>
-          <span className="text-white bg-black px-4 py-2 inline-block mt-2 shadow-[10px_10px_0px_#ccff00] transform -translate-y-1">
-            Opportunities
-          </span> 
-          <br/>
-          <span 
-            className="relative inline-block mt-6 text-[#ccff00]" 
-            style={{ textShadow: '4px 4px 0px rgba(0,0,0,1)' }}
-          >
-            in BFSI Industry
-          </span>
-        </h2>
+
+<h2 className="text-4xl md:text-8xl font-[1000] uppercase leading-[0.9] md:leading-[0.85] tracking-tighter italic break-words">
+    Global Career<br/>
+    <span className="text-white bg-black px-3 py-1 md:px-4 md:py-2 inline-block mt-2 shadow-[6px_6px_0px_#ccff00] md:shadow-[10px_10px_0px_#ccff00] transform -translate-y-1 max-w-[95vw] md:max-w-none truncate md:overflow-visible">
+      Opportunities
+    </span> 
+    <br/>
+    <span className="block md:inline mt-2 md:mt-0">
+      in <span 
+           className="text-[#ccff00] animate-text-glow inline-block"
+           style={{ WebkitTextStroke: '1.5px black' }}
+         >
+           BFSI Industry
+         </span>
+    </span>
+</h2>
       </div>
 
-      <div className="hidden md:flex flex-col items-end gap-3 mb-6 opacity-40">
-        <div className="h-2 w-64 bg-black rounded-full"></div>
-        <div className="h-2 w-40 bg-[#ccff00] rounded-full border-2 border-black"></div>
-      </div>
+      
     </div>
   </div>
 
@@ -467,17 +473,17 @@ const GlobalBFSILanding = () => {
 };
 
 const ContactItem = ({ icon, label, value, href, color = "bg-white" }) => (
-  <div className="group flex items-center gap-4">
-    <div className={`p-4 ${color} rounded-2xl transform group-hover:rotate-12 transition-transform duration-300`} aria-hidden>
+  <div className="group flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+    <div className={`p-3 md:p-4 ${color} rounded-2xl transform group-hover:rotate-12 transition-transform duration-300 self-start sm:self-auto`} aria-hidden>
       {icon}
     </div>
-    <div>
+    <div className="w-full">
       {href ? (
-        <a href={href} className="text-lg md:text-xl font-black hover:text-[#ccff00] transition-colors break-all" aria-label={label}>
+        <a href={href} className="text-base md:text-xl font-black hover:text-[#ccff00] transition-colors break-words" aria-label={label}>
           {value}
         </a>
       ) : (
-        <span className="text-lg md:text-xl font-black" aria-label={label}>{value}</span>
+        <span className="text-base md:text-xl font-black" aria-label={label}>{value}</span>
       )}
     </div>
   </div>
