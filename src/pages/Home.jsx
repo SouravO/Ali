@@ -370,18 +370,41 @@ const GlobalBFSILanding = () => {
         </a>
 
         {/* NEW WEBSITE CARD (Spanning full width of the grid columns on mobile) */}
-        <a href="https://www.globalbfsilearning.com" target="_blank" rel="noreferrer" className="md:col-span-2 group p-8 rounded-3xl bg-[#ccff00]/5 border border-[#ccff00]/10 hover:bg-[#ccff00]/10 transition-all duration-500 hover:-translate-y-2 flex items-center justify-between overflow-hidden">
-          <div className="relative z-10 flex items-center gap-6">
-            <div className="p-4 bg-[#ccff00] rounded-2xl shadow-[0_0_30px_rgba(204,255,0,0.3)] group-hover:scale-110 transition-transform duration-500">
-              <Globe size={32} className="text-black" />
-            </div>
-            <div>
-              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Official Portal</p>
-              <p className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-white group-hover:text-[#ccff00] transition-colors">www.globalbfsilearning.com</p>
-            </div>
-          </div>
-          <ArrowUpRight size={48} className="text-[#ccff00] opacity-20 group-hover:opacity-100 group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-500" />
-        </a>
+       {/* WEBSITE CARD - Compact Lowercase Single Line */}
+<a 
+  href="https://www.globalbfsilearning.com" 
+  target="_blank" 
+  rel="noreferrer" 
+  className="md:col-span-2 group p-4 md:p-8 rounded-3xl bg-[#ccff00]/5 border border-[#ccff00]/10 hover:bg-[#ccff00]/10 transition-all duration-500 hover:-translate-y-1 flex items-center justify-between overflow-hidden gap-3 md:gap-6"
+>
+  <div className="relative z-10 flex items-center gap-3 md:gap-6 min-w-0">
+    {/* Icon: Smaller and more subtle for mobile */}
+    <div className="p-2 md:p-4 bg-[#ccff00] rounded-xl shadow-[0_0_15px_rgba(204,255,0,0.2)] group-hover:scale-105 transition-transform duration-500 shrink-0">
+      <Globe size={16} className="text-black md:hidden" />
+      <Globe size={28} className="text-black hidden md:block" />
+    </div>
+    
+    <div className="min-w-0">
+      <p className="text-zinc-500 text-[8px] md:text-[10px] font-black uppercase tracking-[0.1em] mb-0.5 opacity-80">
+        Official Portal
+      </p>
+      {/* - lowercase: forces all small letters
+          - text-sm: base small size for mobile
+          - sm:text-lg: scaling for tablets
+          - md:text-2xl: scaling for desktop
+          - whitespace-nowrap: prevents the line break 
+      */}
+      <p className="text-sm sm:text-lg md:text-2xl font-bold tracking-tight lowercase text-white group-hover:text-[#ccff00] transition-colors whitespace-nowrap truncate">
+        www.globalbfsilearning.com
+      </p>
+    </div>
+  </div>
+
+  {/* Smaller Arrow to match the compact vibe */}
+  <div className="shrink-0">
+    <ArrowUpRight size={20} className="md:size-32 text-[#ccff00] opacity-30 md:opacity-10 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-500" />
+  </div>
+</a>
       </div>
 
       {/* RIGHT: MASSIVE CALL TO ACTION */}
