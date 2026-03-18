@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import {
-  Phone, Mail, Globe, MessageCircle
+  Phone, Mail, Globe, MessageCircle, ArrowUpRight, CheckCircle2
 } from 'lucide-react';
 
-// Right to logo – Global BFSI Learning
 const homeLogo = new URL(
   '../assets/logo/WhatsApp_Image_2026-03-14_at_3,20,48_PM-removebg-preview-Picsart-AiImageEnhancer.png',
   import.meta.url
@@ -14,9 +13,9 @@ const GlobalBFSILanding = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const heroScale = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
+  const heroScale = useTransform(smoothProgress, [0, 0.2], [1, 0.98]);
+  const heroOpacity = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
 
-  // --- FORM STATE ---
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -29,218 +28,268 @@ const GlobalBFSILanding = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Constructing the Mailto Link with all new fields
   const mailtoLink = `mailto:info@globalbfsilearning.com?subject=BFSI Consultation Request: ${formData.name}&body=Details:%0D%0AName: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AQualification: ${formData.qualification}%0D%0AStatus: ${formData.status}`;
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-[#f0f4f8] text-black font-sans overflow-x-hidden selection:bg-[#ccff00] selection:text-black"
-    >
+    <div ref={containerRef} className="bg-[#050505] text-white font-sans overflow-x-hidden selection:bg-[#ccff00] selection:text-black">
+      
       {/* --- SECTION 1: THE HERO --- */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center z-10 px-4 md:px-6 pt-28 md:pt-24 pb-12">
-        {/* Header / Logo area */}
-        <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8 flex items-center justify-start">
-          <div className="flex items-center gap-3 md:gap-4 max-w-full">
-            <img
-              src={homeLogo}
-              alt="Logo"
-              className="w-20 md:w-32 lg:w-40 h-auto object-contain shrink-0"
-            />
-            <div className="flex flex-col items-start justify-center leading-tight">
-              <span className="montserrat-bold-green text-base md:text-2xl lg:text-3xl tracking-wide uppercase text-left">
-                Global BFSI Learning
-              </span>
-             
-            </div>
+      <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 overflow-hidden">
+        {/* Animated Background Glow */}
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#ccff00]/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#ccff00]/5 blur-[120px] rounded-full" />
+
+        <header className="absolute top-0 left-0 w-full p-6 md:p-10 pb-8 md:pb-10 z-50">
+          <div className="max-w-7xl mx-auto flex items-center gap-4">
+            <img src={homeLogo} alt="Logo" className="w-32 md:w-48 h-auto object-contain brightness-110" />
+            <div className="h-10 w-[1px] bg-white/20 mx-4" />
+            <span className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase italic leading-none">
+              Global <span className="text-[#ccff00]">BFSI</span> Learning
+            </span>
           </div>
-        </div>
+        </header>
 
-        <motion.div
-          style={{ scale: heroScale }}
-          className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-        >
-          <div className="text-left order-2 lg:order-1">
-            {/* mobile-only subtitle */}
-            <div className="flex md:hidden items-center gap-2 mb-4">
-              <div className="h-[2px] w-8 bg-black"></div>
-              <span className="font-bold tracking-tighter text-sm uppercase">
-                We Build BFSI Professionals Who Stand Out
-              </span>
-            </div>
-
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              className="hidden md:flex items-center gap-2 mb-4 md:mb-6"
-            >
-              <div className="h-[2px] w-8 md:w-12 bg-black"></div>
-              <span className="font-bold tracking-tighter text-xs md:text-sm uppercase">
+        <motion.div style={{ scale: heroScale, opacity: heroOpacity }} className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10">
+          <div className="space-y-8">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mt-8 md:mt-10 mb-3">
+              <span className="w-2 h-2 rounded-full bg-[#ccff00] animate-pulse" />
+              <span className="text-xs md:text-sm font-bold tracking-widest uppercase text-zinc-400">
                 We Build BFSI Professionals Who Stand Out
               </span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-[1000] leading-[0.95] uppercase mb-6 md:mb-8 tracking-tighter">
-              DOMINATE THE <span className="text-[#ccff00] bg-black px-2">BFSI INDUSTRY</span> <br />
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight uppercase">
+              DOMINATE THE <br/>
+              <span className="text-[#ccff00] drop-shadow-[0_0_15px_rgba(204,255,0,0.3)]">BFSI INDUSTRY</span> <br />
               SHAPE YOUR GLOBAL CAREER
             </h1>
 
-            <p className="max-w-xl font-bold text-base md:text-xl text-zinc-600 mb-8 md:mb-10 leading-relaxed border-l-4 border-[#ccff00] pl-4 md:pl-6">
+            <p className="max-w-xl text-lg md:text-xl text-zinc-400 leading-relaxed border-l-2 border-[#ccff00] pl-6">
               Unlock elite BFSI expertise, fast-track your career, land high-paying jobs, and grow
               continuously with our unlimited career support.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <button
                 onClick={() => window.open('https://globalbfsilearning.com/', '_blank')}
-                className="border-4 border-black px-6 md:px-8 py-4 md:py-5 rounded-full font-black uppercase text-base md:text-lg hover:bg-black hover:text-white transition-colors"
+                className="group relative bg-[#ccff00] text-black px-10 py-5 rounded-xl font-black uppercase text-lg overflow-hidden transition-all hover:scale-105 active:scale-95"
               >
-                Explore Training Program
+                <span className="relative z-10 flex items-center gap-2">
+                  Explore Training Program <ArrowUpRight size={24} />
+                </span>
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </button>
             </div>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="relative order-1 lg:order-2 px-4 md:px-0"
-          >
-            <div className="absolute -inset-2 md:-inset-4 border-4 border-black rounded-[30px] md:rounded-[40px] z-0 translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4"></div>
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070"
-              alt="Corporate Finance"
-              className="relative z-10 w-full h-[300px] md:h-[500px] object-cover rounded-[30px] md:rounded-[40px]"
-            />
+          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-[#ccff00] to-white/20 rounded-[40px] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+            <div className="relative bg-black rounded-[40px] overflow-hidden border border-white/10">
+              <img
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070"
+                alt="Corporate Finance"
+                className="w-full h-[400px] md:h-[600px] object-cover opacity-80 group-hover:scale-110 transition-transform duration-700"
+              />
+            </div>
           </motion.div>
         </motion.div>
       </section>
 
       {/* --- SECTION 2: THE MOVING SLIDER --- */}
-      <div className="bg-[#ccff00] py-6 md:py-10 border-y-[4px] border-black z-30 relative -rotate-1 overflow-hidden">
-          <div className="marquee-wrapper">
-            <div className="marquee-track" style={{ animationDuration: '8s' }}>
-              {[1, 2].map((group) => (
-                <div key={`a-${group}`} className="flex items-center marquee-group">
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Mentor by Industry Experts
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Job-Ready Preparation
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Resume That Gets Interview Calls
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Real Mock Interviews
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Continuous Career Guidance
-                  </span>
-                </div>
-              ))}
-              {/* duplicate for seamless looping */}
-              {[1, 2].map((group) => (
-                <div key={`b-${group}`} className="flex items-center marquee-group">
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Mentor by Industry Experts
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Job-Ready Preparation
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Resume That Gets Interview Calls
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Real Mock Interviews
-                  </span>
-                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                    Continuous Career Guidance
-                  </span>
-                </div>
-              ))}
-            </div>
+      <div className="bg-white py-8 border-y border-white/10 z-30 relative rotate-[-1deg] scale-105 shadow-[0_0_50px_rgba(204,255,0,0.2)]">
+        <div className="marquee-wrapper">
+          <div className="marquee-track" style={{ animationDuration: '8s' }}>
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="flex items-center marquee-group">
+                {["Mentor by Industry Experts", "Job-Ready Preparation", "Resume That Gets Interview Calls", "Real Mock Interviews", "Continuous Career Guidance"].map((text, idx) => (
+                  <div key={idx} className="flex items-center">
+                    <span className="text-black font-black text-xl md:text-3xl uppercase mx-8">{text}</span>
+                    <span className="w-3 h-3 bg-[#ccff00] rounded-full border-2 border-black" />
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
+        </div>
       </div>
 
       {/* --- SECTION 3: COUNSELLING FORM --- */}
-      <section id="consultation" className="py-20 md:py-40 px-6 bg-black text-white relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div className="space-y-8">
-            <h2 className="text-4xl md:text-7xl font-[1000] uppercase leading-none text-[#ccff00]">
+      <section id="consultation" className="py-24 md:py-40 px-6 relative">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20">
+          <div className="flex flex-col justify-center space-y-10">
+            <h2 className="text-5xl md:text-8xl font-black uppercase leading-[0.85] text-white">
               Struggling to Get <br />
-              Interview Calls <br />
+              <span className="text-[#ccff00]">Interview Calls</span> <br />
               for BFSI Jobs?
             </h2>
+            <div className="space-y-4">
+               {[ "Global Curriculum", "Expert Mentorship", "Placement Support" ].map(item => (
+                 <div key={item} className="flex items-center gap-3 text-zinc-400 font-bold uppercase tracking-widest">
+                   <CheckCircle2 className="text-[#ccff00]" size={20} /> {item}
+                 </div>
+               ))}
+            </div>
           </div>
 
-          <div className="bg-white text-black p-8 md:p-12 rounded-[40px] border-b-8 border-r-8 border-[#ccff00]">
-            <h3 className="text-2xl md:text-3xl font-[1000] uppercase mb-8">
-              CLAIM YOUR FREE BFSI CAREER CONSULTATION
-            </h3>
-            <div className="space-y-4">
-              <input name="name" placeholder="YOUR NAME" className="form-ultra" onChange={handleInputChange} />
-              <input name="phone" placeholder="MOBILE NUMBER" className="form-ultra" onChange={handleInputChange} />
+          <div className="relative">
+             <div className="absolute inset-0 bg-[#ccff00] blur-[100px] opacity-10" />
+             <div className="relative bg-zinc-900/50 backdrop-blur-xl p-8 md:p-14 rounded-[40px] border border-white/10 shadow-2xl">
+              <h3 className="text-3xl font-black uppercase mb-10 tracking-tighter">
+                CLAIM YOUR FREE <br/><span className="text-[#ccff00]">BFSI CAREER CONSULTATION</span>
+              </h3>
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-[#ccff00] ml-2">FULL NAME</label>
+                  <input name="name" placeholder="E.G. JOHN DOE" className="form-ultra-modern" onChange={handleInputChange} />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-[#ccff00] ml-2">MOBILE NUMBER</label>
+                  <input name="phone" placeholder="+91 XXXX XXX XXX" className="form-ultra-modern" onChange={handleInputChange} />
+                </div>
 
-              <select name="qualification" className="form-ultra" onChange={handleInputChange}>
-                <option value="">QUALIFICATION</option>
-                <option value="B.Com">B.Com</option>
-                <option value="BBA/BBM">BBA / BBM (Finance)</option>
-                <option value="MBA">MBA (Finance)</option>
-                <option value="M.Com">M.Com</option>
-              </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <select name="qualification" className="form-ultra-modern" onChange={handleInputChange}>
+                    <option value="">QUALIFICATION</option>
+                    <option value="B.Com">B.Com</option>
+                    <option value="BBA/BBM">BBA / BBM (Finance)</option>
+                    <option value="MBA">MBA (Finance)</option>
+                    <option value="M.Com">M.Com</option>
+                  </select>
 
-              <select name="status" className="form-ultra" onChange={handleInputChange}>
-                <option value="">CURRENT STATUS</option>
-                <option value="Student">Student</option>
-                <option value="Job Seeker">Job Seeker</option>
-                <option value="Working Professional">Working Professional</option>
-              </select>
+                  <select name="status" className="form-ultra-modern" onChange={handleInputChange}>
+                    <option value="">CURRENT STATUS</option>
+                    <option value="Student">Student</option>
+                    <option value="Job Seeker">Job Seeker</option>
+                    <option value="Working Professional">Working Professional</option>
+                  </select>
+                </div>
 
-              <a
-                href={mailtoLink}
-                className="w-full bg-black text-[#ccff00] py-5 rounded-full font-[1000] text-xl uppercase text-center block hover:scale-95 transition-transform"
-              >
-                Claim Consultation
-              </a>
+                <a
+                  href={mailtoLink}
+                  className="w-full bg-[#ccff00] text-black py-6 rounded-2xl font-black text-xl uppercase text-center block hover:bg-white hover:scale-[1.02] transition-all duration-300 shadow-[0_10px_30px_rgba(204,255,0,0.2)]"
+                >
+                  Claim Consultation
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* --- SECTION 4: GLOBAL NETWORK --- */}
-      <section className="py-20 bg-white">
-        <div className="text-center mb-10 px-4">
-          <h2 className="text-3xl md:text-5xl font-[1000] uppercase">
-            🚀 Global Career Opportunities in BFSI Industry
-          </h2>
-        </div>
-        <div className="border-y-4 border-black py-12 bg-zinc-50">
-          <Marquee velocity={12} direction="left" />
-        </div>
-      </section>
+    <section className="relative py-24 bg-white text-black rounded-t-[60px] md:rounded-t-[100px] -mt-12 z-20 overflow-hidden shadow-[0_-30px_60px_rgba(0,0,0,0.1)]">
+  
+  {/* 3D FLOATING STICKER */}
+  <div 
+    className="absolute top-12 right-[8%] hidden lg:flex w-32 h-32 bg-[#ccff00] border-[3px] border-black shadow-[12px_12px_0px_#000] items-center justify-center font-black text-4xl z-10"
+    style={{ animation: 'bounce-slow 5s ease-in-out infinite', transform: 'rotate(-12deg)' }}
+  >
+    BFSI
+  </div>
+
+  <div className="max-w-7xl mx-auto px-6 mb-20 relative z-30">
+    <div className="flex flex-col md:flex-row md:items-end justify-between gap-10">
+      <div className="relative">
+        {/* Main Heading */}
+        <h2 className="text-5xl md:text-8xl font-[1000] uppercase leading-[0.85] tracking-tighter italic">
+          Global Career <br/>
+          <span className="text-white bg-black px-4 py-2 inline-block mt-2 shadow-[10px_10px_0px_#ccff00] transform -translate-y-1">
+            Opportunities
+          </span> 
+          <br/>
+          <span 
+            className="relative inline-block mt-6 text-[#ccff00]" 
+            style={{ textShadow: '4px 4px 0px rgba(0,0,0,1)' }}
+          >
+            in BFSI Industry
+          </span>
+        </h2>
+      </div>
+
+      <div className="hidden md:flex flex-col items-end gap-3 mb-6 opacity-40">
+        <div className="h-2 w-64 bg-black rounded-full"></div>
+        <div className="h-2 w-40 bg-[#ccff00] rounded-full border-2 border-black"></div>
+      </div>
+    </div>
+  </div>
+
+  {/* THE "FUNK" MARQUEE */}
+  {/* THE "FUNK" MARQUEE - COMPANY LOGO SLIDER */}
+  <div className="relative py-10 bg-black -rotate-2 scale-110 border-y-[6px] border-[#ccff00] shadow-2xl z-40 overflow-hidden">
+    <div 
+      className="flex whitespace-nowrap" 
+      style={{ animation: 'marquee-scroll 25s linear infinite', width: 'fit-content' }}
+    >
+      {/* First Set of Companies */}
+      <div className="flex items-center gap-16 px-8">
+        {['Citi', 'Goldman Sachs', 'Morgan Stanley', 'JPMorgan', 'HDFC Bank', 'HSBC', 'Standard Chartered', 'Nomura', 'Barclays'].map((company, index) => (
+          <React.Fragment key={index}>
+            <span className="text-4xl md:text-6xl font-black uppercase text-[#ccff00] italic tracking-tighter hover:text-white transition-colors cursor-default">
+              {company}
+            </span>
+            <span className="text-[#ccff00] text-5xl animate-pulse">★</span>
+          </React.Fragment>
+        ))}
+      </div>
+
+      {/* Duplicate Set for Seamless Loop */}
+      <div className="flex items-center gap-16 px-8">
+        {['Citi', 'Goldman Sachs', 'Morgan Stanley', 'JPMorgan', 'HDFC Bank', 'HSBC', 'Standard Chartered', 'Nomura', 'Barclays'].map((company, index) => (
+          <React.Fragment key={`dup-${index}`}>
+            <span className="text-4xl md:text-6xl font-black uppercase text-[#ccff00] italic tracking-tighter hover:text-white transition-colors cursor-default">
+              {company}
+            </span>
+            <span className="text-[#ccff00] text-5xl animate-pulse">★</span>
+          </React.Fragment>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div className="h-24 bg-white"></div>
+
+  {/* React-friendly Style Injector */}
+  <style dangerouslySetInnerHTML={{ __html: `
+    @keyframes marquee-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateY(0) rotate(-12deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+  `}} />
+</section>
 
       {/* --- SECTION 5: THE METHOD --- */}
-      <section className="py-20 md:py-40 px-6 bg-[#f0f4f8]">
+      <section className="py-24 md:py-40 px-6 bg-white text-black">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">SMART PATH</h4>
-            <p className="font-bold text-black">
-              Learn what the BFSI industry expects.
+          <div className="group bg-black text-white p-10 rounded-[40px] border border-zinc-200 hover:bg-[#ccff00] hover:text-black transition-all duration-500">
+            <div className="w-16 h-16 bg-[#ccff00] rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-12 transition-transform">
+               <span className="text-2xl font-black text-white group-hover:text-black">01</span>
+            </div>
+            <h4 className="text-3xl font-black uppercase mb-4 tracking-tighter">SMART PATH</h4>
+            <p className="font-medium text-lg opacity-70 group-hover:opacity-100">
+              Learn what the BFSI industry expects. High-impact curriculum designed for the modern era.
             </p>
           </div>
 
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">MOCK DRILLS</h4>
-            <p className="font-bold text-black">
-              Mock Interviews Conducted by BFSI Industry Experts
+          <div className="group bg-black text-white p-10 rounded-[40px] border border-black shadow-2xl scale-105 z-10 hover:bg-[#ccff00] hover:text-black">
+            <div className="w-16 h-16 bg-[#ccff00] rounded-2xl flex items-center justify-center mb-8 -rotate-3 group-hover:-rotate-12 transition-transform">
+               <span className="text-2xl font-black text-white group-hover:text-black">02</span>
+            </div>
+            <h4 className="text-3xl font-black uppercase mb-4 tracking-tighter">MOCK DRILLS</h4>
+            <p className="font-medium text-lg opacity-80">
+              Mock Interviews Conducted by BFSI Industry Experts. Real pressure, real feedback, real results.
             </p>
           </div>
 
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">
-              UNLIMITED CAREER SUPPORT
-            </h4>
-            <p className="font-bold text-black">
+          <div className="group bg-black text-white p-10 rounded-[40px] border border-zinc-200 hover:bg-[#ccff00] hover:text-black transition-all duration-500">
+            <div className="w-16 h-16 bg-[#ccff00] rounded-2xl flex items-center justify-center mb-8 rotate-3 group-hover:rotate-12 transition-transform">
+               <span className="text-2xl font-black text-white group-hover:text-black">03</span>
+            </div>
+            <h4 className="text-3xl font-black uppercase mb-4 tracking-tighter">UNLIMITED CAREER SUPPORT</h4>
+            <p className="font-medium text-lg opacity-70 group-hover:opacity-100">
               Guidance and support until you secure a job — and even beyond your first paycheck.
             </p>
           </div>
@@ -248,171 +297,172 @@ const GlobalBFSILanding = () => {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="bg-black text-white py-20 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
-          <div className="flex flex-col gap-5 w-full md:w-auto">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-full text-black">
-                <Phone size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Phone</p>
-                <span className="text-2xl font-black">7500611247</span>
-              </div>
-            </div>
+      <section className="relative bg-black text-white pt-32 pb-12 px-6 overflow-hidden border-t border-white/5">
+  {/* --- 3D AMBIENT VISUALS --- */}
+  <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#ccff00]/10 rounded-full blur-[120px] pointer-events-none" />
+  <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
+  
+  {/* KINETIC BACKGROUND TEXT */}
+  <div className="absolute top-20 left-0 w-full whitespace-nowrap opacity-[0.03] select-none pointer-events-none">
+    <h2 className="text-[12vw] font-black leading-none uppercase italic tracking-tighter">
+      GLOBAL BFSI LEARNING • GLOBAL BFSI LEARNING
+    </h2>
+  </div>
 
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-[#25D366] rounded-full text-white">
-                <MessageCircle size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">WhatsApp</p>
-                <a
-                  href="https://wa.me/917500611247"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-2xl font-black hover:text-[#ccff00] transition-colors"
-                >
-                  Chat on WhatsApp
-                </a>
-              </div>
+  <div className="max-w-7xl mx-auto relative z-10">
+    <div className="flex flex-col xl:flex-row gap-16 items-start">
+      
+      {/* LEFT: BENTO-STYLE CONTACT GRID */}
+      <div className="w-full xl:w-7/12 grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        {/* Phone Card */}
+        <div className="group p-8 rounded-3xl bg-zinc-900/40 border border-white/5 hover:border-[#ccff00]/40 transition-all duration-500 hover:-translate-y-2 shadow-2xl">
+          <div className="flex justify-between items-start mb-6">
+            <div className="p-3 bg-white rounded-xl shadow-[0_0_20px_rgba(255,255,255,0.2)] group-hover:scale-110 transition-transform">
+              <Phone size={24} className="text-black" />
             </div>
-
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-full text-black">
-                <Mail size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Email</p>
-                <a
-                  href="mailto:info@globalbfsilearning.com"
-                  className="text-lg md:text-xl font-black break-all hover:text-[#ccff00] transition-colors"
-                >
-                  info@globalbfsilearning.com
-                </a>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-full text-black">
-                <Globe size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Website</p>
-                <a
-                  href="https://www.globalbfsilearning.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-lg md:text-xl font-black break-all hover:text-[#ccff00] transition-colors"
-                >
-                  www.globalbfsilearning.com
-                </a>
-              </div>
-            </div>
+            <ArrowUpRight className="text-zinc-600 group-hover:text-[#ccff00] transition-colors" />
           </div>
-
-          <div className="text-left md:text-right flex flex-col items-start md:items-end w-full md:w-auto">
-            <p className="font-black text-2xl md:text-4xl uppercase mb-8 max-w-2xl">
-              Ready to Take the Next Step in Your BFSI Career?
-            </p>
-
-            <div className="flex items-center gap-6">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/271/271220.png"
-                className="w-12 h-12 invert animate-pulse hidden md:block"
-                alt="point"
-              />
-
-              <button
-                onClick={() => window.open('https://globalbfsilearning.com/', '_blank')}
-                className="bg-[#ccff00] text-black px-12 py-6 rounded-full font-[1000] text-2xl uppercase hover:scale-110 transition-transform shadow-xl"
-              >
-                ENROLL NOW
-              </button>
-            </div>
-          </div>
+          <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Inquiry Line</p>
+          <p className="text-2xl font-bold tracking-tight">7500611247</p>
         </div>
-      </footer>
+
+        {/* Email Card */}
+        <a href="mailto:info@globalbfsilearning.com" className="group p-8 rounded-3xl bg-zinc-900/40 border border-white/5 hover:border-[#ccff00]/40 transition-all duration-500 hover:-translate-y-2">
+          <div className="flex justify-between items-start mb-6">
+            <div className="p-3 bg-white rounded-xl group-hover:scale-110 transition-transform">
+              <Mail size={24} className="text-black" />
+            </div>
+            <ArrowUpRight className="text-zinc-600 group-hover:text-[#ccff00]" />
+          </div>
+          <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Official Email</p>
+          <p className="text-lg font-bold break-all leading-tight">info@globalbfsilearning.com</p>
+        </a>
+
+        {/* WhatsApp Card 1 */}
+        <a href="https://wa.me/917500611247" target="_blank" rel="noreferrer" className="group p-8 rounded-3xl bg-[#25D366]/5 border border-[#25D366]/20 hover:bg-[#25D366]/10 transition-all duration-500 hover:-translate-y-2">
+          <div className="flex justify-between items-start mb-6">
+            <div className="p-3 bg-[#25D366] rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] group-hover:rotate-12 transition-transform">
+              <MessageCircle size={24} className="text-white" />
+            </div>
+            <span className="text-[#25D366] font-black text-[10px] tracking-widest uppercase">Direct Chat</span>
+          </div>
+          <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">WhatsApp One</p>
+          <p className="text-xl font-bold italic uppercase leading-none">Chat on WhatsApp</p>
+        </a>
+
+        {/* WhatsApp Card 2 */}
+        <a href="https://wa.me/919663384594" target="_blank" rel="noreferrer" className="group p-8 rounded-3xl bg-[#25D366]/5 border border-[#25D366]/20 hover:bg-[#25D366]/10 transition-all duration-500 hover:-translate-y-2">
+          <div className="flex justify-between items-start mb-6">
+            <div className="p-3 bg-[#25D366] rounded-xl shadow-[0_0_20px_rgba(37,211,102,0.3)] group-hover:rotate-12 transition-transform">
+              <MessageCircle size={24} className="text-white" />
+            </div>
+            <span className="text-[#25D366] font-black text-[10px] tracking-widest uppercase">CONTACT US ON</span>
+          </div>
+          <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">WhatsApp Two</p>
+          <p className="text-xl font-bold tracking-tight">96633 84594</p>
+        </a>
+
+        {/* NEW WEBSITE CARD (Spanning full width of the grid columns on mobile) */}
+        <a href="https://www.globalbfsilearning.com" target="_blank" rel="noreferrer" className="md:col-span-2 group p-8 rounded-3xl bg-[#ccff00]/5 border border-[#ccff00]/10 hover:bg-[#ccff00]/10 transition-all duration-500 hover:-translate-y-2 flex items-center justify-between overflow-hidden">
+          <div className="relative z-10 flex items-center gap-6">
+            <div className="p-4 bg-[#ccff00] rounded-2xl shadow-[0_0_30px_rgba(204,255,0,0.3)] group-hover:scale-110 transition-transform duration-500">
+              <Globe size={32} className="text-black" />
+            </div>
+            <div>
+              <p className="text-zinc-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">Official Portal</p>
+              <p className="text-2xl md:text-3xl font-black tracking-tighter uppercase italic text-white group-hover:text-[#ccff00] transition-colors">www.globalbfsilearning.com</p>
+            </div>
+          </div>
+          <ArrowUpRight size={48} className="text-[#ccff00] opacity-20 group-hover:opacity-100 group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-500" />
+        </a>
+      </div>
+
+      {/* RIGHT: MASSIVE CALL TO ACTION */}
+      <div className="w-full xl:w-5/12 flex flex-col justify-center items-start xl:items-end">
+        <h2 className="font-black text-5xl md:text-7xl uppercase leading-[0.85] mb-12 text-left xl:text-right italic tracking-tighter">
+          Ready to Take <br/> 
+          <span className="text-zinc-800">the Next Step</span> <br/>
+          in Your <br/>
+          <span className="text-[#ccff00] drop-shadow-[0_0_30px_rgba(204,255,0,0.4)]">BFSI Career?</span>
+        </h2>
+
+        <button
+          onClick={() => window.open('https://globalbfsilearning.com/', '_blank')}
+          className="relative group overflow-hidden bg-[#ccff00] text-black px-12 py-10 rounded-[2.5rem] font-black text-3xl uppercase transition-all duration-700 hover:scale-105 hover:-rotate-1 shadow-[0_20px_80px_rgba(204,255,0,0.2)]"
+        >
+          <span className="relative z-10 flex items-center gap-4">
+            ENROLL NOW
+            <ArrowUpRight size={44} className="group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500" />
+          </span>
+          <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white/60 opacity-0 group-hover:opacity-100 group-hover:left-full transition-all duration-1000" />
+        </button>
+      </div>
+    </div>
+
+    {/* FOOTER BOTTOM BAR */}
+    <div className="mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+      <p className="text-zinc-600 font-bold text-[10px] uppercase tracking-[0.2em]">
+        © 2026 GLOBAL BFSI LEARNING. ALL RIGHTS RESERVED.
+      </p>
+      
+      <div className="flex gap-10">
+        {['Privacy Policy', 'Terms of Service'].map((item) => (
+          <span key={item} className="relative cursor-pointer text-zinc-500 font-black text-[10px] uppercase tracking-[0.2em] hover:text-white transition-colors group">
+            {item}
+            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#ccff00] transition-all group-hover:w-full" />
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       <style jsx>{`
-        .form-ultra {
+        .form-ultra-modern {
           width: 100%;
-          background: #f1f5f9;
-          border: 3px solid #000;
-          padding: 1rem;
-          border-radius: 0.75rem;
-          font-weight: 800;
+          background: rgba(255, 255, 255, 0.03);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 1.25rem;
+          border-radius: 1rem;
+          font-weight: 700;
+          color: white;
           text-transform: uppercase;
           outline: none;
+          transition: all 0.3s ease;
         }
 
-        .form-ultra:focus {
-          background: white;
+        .form-ultra-modern:focus {
+          background: rgba(255, 255, 255, 0.07);
           border-color: #ccff00;
+          box-shadow: 0 0 20px rgba(204, 255, 0, 0.1);
         }
 
-        .montserrat-bold-green {
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 900;
-          color: #006400;
-        }
-        /* Top slider (text) marquee */
-        .marquee-wrapper {
-          width: 100%;
-          overflow: hidden;
+        select.form-ultra-modern option {
+          background: #111;
+          color: white;
         }
 
-        .marquee-track {
-          display: flex;
-          gap: 0;
-          align-items: center;
-          flex-wrap: nowrap;
-          white-space: nowrap;
-          /* animate left by 50% of its total width (we duplicate content) */
-          animation-name: marqueeScroll;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          will-change: transform;
-        }
-
-        .marquee-group {
-          display: inline-flex;
-          gap: 0;
-          align-items: center;
-          white-space: nowrap;
-        }
+        .marquee-wrapper { width: 100%; overflow: hidden; }
+        .marquee-track { display: flex; flex-wrap: nowrap; white-space: nowrap; animation: marqueeScroll linear infinite; }
+        .marquee-group { display: inline-flex; align-items: center; white-space: nowrap; }
 
         @keyframes marqueeScroll {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
 
-        /* Company logos marquee */
-        .marquee-logos {
-          width: 100%;
-          overflow: hidden;
-        }
-
         .marquee-logos-track {
           display: flex;
-          gap: 5rem;
-          align-items: center;
           flex-wrap: nowrap;
           white-space: nowrap;
-          animation-name: marqueeLogos;
-          animation-timing-function: linear;
-          animation-iteration-count: infinite;
-          will-change: transform;
-        }
-
-        .marquee-logos.reverse .marquee-logos-track {
-          animation-direction: reverse;
+          animation: marqueeLogos linear infinite;
         }
 
         @keyframes marqueeLogos {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        /* Ensure each marquee item doesn't wrap */
         .marquee-track span,
         .marquee-logos-track span {
           display: inline-block;
@@ -423,39 +473,36 @@ const GlobalBFSILanding = () => {
   );
 };
 
-const Marquee = ({ velocity, direction }) => {
-  const companies = [
-    'Citi',
-    'Goldman Sachs',
-    'Morgan Stanley',
-    'JPMorgan',
-    'HDFC Bank',
-    'HSBC',
-    'Standard Chartered',
-    'Nomura',
-    'Barclays'
-  ];
+const ContactItem = ({ icon, label, value, href, color = "bg-white" }) => (
+  <div className="group flex items-center gap-4">
+    <div className={`p-4 ${color} rounded-2xl transform group-hover:rotate-12 transition-transform duration-300`} aria-hidden>
+      {icon}
+    </div>
+    <div>
+      {href ? (
+        <a href={href} className="text-lg md:text-xl font-black hover:text-[#ccff00] transition-colors break-all" aria-label={label}>
+          {value}
+        </a>
+      ) : (
+        <span className="text-lg md:text-xl font-black" aria-label={label}>{value}</span>
+      )}
+    </div>
+  </div>
+);
 
-  // Use CSS-based marquee for a seamless loop; duplicate list twice
+const Marquee = ({ velocity, direction }) => {
+  const companies = ['Citi', 'Goldman Sachs', 'Morgan Stanley', 'JPMorgan', 'HDFC Bank', 'HSBC', 'Standard Chartered', 'Nomura', 'Barclays'];
   return (
-    <div className="flex whitespace-nowrap overflow-hidden">
-      <div
-        className={`marquee-logos ${direction === 'right' ? 'reverse' : ''}`}
-        style={{ animationDuration: `${velocity}s` }}
-      >
-        <div className="marquee-logos-track">
-          {[...companies, ...companies].map((c, i) => (
-            <span
-              key={i}
-              className="text-4xl md:text-6xl font-[1000] uppercase italic text-green-500 hover:text-black transition-colors cursor-default mx-10"
-            >
-              {c}
-            </span>
-          ))}
-        </div>
+    <div className="overflow-hidden flex">
+      <div className="marquee-logos-track" style={{ animationDuration: `${velocity}s` }}>
+        {[...companies, ...companies, ...companies].map((c, i) => (
+          <span key={i} className="text-5xl md:text-8xl font-black uppercase italic text-black hover:text-[#ccff00] transition-colors cursor-default mx-12">
+            {c}
+          </span>
+        ))}
       </div>
     </div>
   );
 };
 
-export default GlobalBFSILanding;
+export default GlobalBFSILanding;``
