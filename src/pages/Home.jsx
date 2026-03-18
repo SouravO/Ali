@@ -61,10 +61,18 @@ const GlobalBFSILanding = () => {
           className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
           <div className="text-left order-2 lg:order-1">
+            {/* mobile-only subtitle */}
+            <div className="flex md:hidden items-center gap-2 mb-4">
+              <div className="h-[2px] w-8 bg-black"></div>
+              <span className="font-bold tracking-tighter text-sm uppercase">
+                We Build BFSI Professionals Who Stand Out
+              </span>
+            </div>
+
             <motion.div
               initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              className="flex items-center gap-2 mb-4 md:mb-6"
+              className="hidden md:flex items-center gap-2 mb-4 md:mb-6"
             >
               <div className="h-[2px] w-8 md:w-12 bg-black"></div>
               <span className="font-bold tracking-tighter text-xs md:text-sm uppercase">
@@ -109,31 +117,49 @@ const GlobalBFSILanding = () => {
 
       {/* --- SECTION 2: THE MOVING SLIDER --- */}
       <div className="bg-[#ccff00] py-6 md:py-10 border-y-[4px] border-black z-30 relative -rotate-1 overflow-hidden">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 8, ease: 'linear', repeat: Infinity }}
-        >
-          {[1, 2].map((group) => (
-            <div key={group} className="flex items-center">
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Mentor by Industry Experts
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Job-Ready Preparation
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Resume That Gets Interview Calls
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Real Mock Interviews
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Continuous Career Guidance
-              </span>
+          <div className="marquee-wrapper">
+            <div className="marquee-track" style={{ animationDuration: '8s' }}>
+              {[1, 2].map((group) => (
+                <div key={`a-${group}`} className="flex items-center marquee-group">
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Mentor by Industry Experts
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Job-Ready Preparation
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Resume That Gets Interview Calls
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Real Mock Interviews
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Continuous Career Guidance
+                  </span>
+                </div>
+              ))}
+              {/* duplicate for seamless looping */}
+              {[1, 2].map((group) => (
+                <div key={`b-${group}`} className="flex items-center marquee-group">
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Mentor by Industry Experts
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Job-Ready Preparation
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Resume That Gets Interview Calls
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Real Mock Interviews
+                  </span>
+                  <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
+                    Continuous Career Guidance
+                  </span>
+                </div>
+              ))}
             </div>
-          ))}
-        </motion.div>
+          </div>
       </div>
 
       {/* --- SECTION 3: COUNSELLING FORM --- */}
@@ -329,6 +355,69 @@ const GlobalBFSILanding = () => {
           font-weight: 900;
           color: #006400;
         }
+        /* Top slider (text) marquee */
+        .marquee-wrapper {
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .marquee-track {
+          display: flex;
+          gap: 0;
+          align-items: center;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          /* animate left by 50% of its total width (we duplicate content) */
+          animation-name: marqueeScroll;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          will-change: transform;
+        }
+
+        .marquee-group {
+          display: inline-flex;
+          gap: 0;
+          align-items: center;
+          white-space: nowrap;
+        }
+
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        /* Company logos marquee */
+        .marquee-logos {
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .marquee-logos-track {
+          display: flex;
+          gap: 5rem;
+          align-items: center;
+          flex-wrap: nowrap;
+          white-space: nowrap;
+          animation-name: marqueeLogos;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+          will-change: transform;
+        }
+
+        .marquee-logos.reverse .marquee-logos-track {
+          animation-direction: reverse;
+        }
+
+        @keyframes marqueeLogos {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        /* Ensure each marquee item doesn't wrap */
+        .marquee-track span,
+        .marquee-logos-track span {
+          display: inline-block;
+          white-space: nowrap;
+        }
       `}</style>
     </div>
   );
@@ -347,22 +436,24 @@ const Marquee = ({ velocity, direction }) => {
     'Barclays'
   ];
 
+  // Use CSS-based marquee for a seamless loop; duplicate list twice
   return (
     <div className="flex whitespace-nowrap overflow-hidden">
-      <motion.div
-        animate={{ x: direction === 'left' ? [0, -1000] : [-1000, 0] }}
-        transition={{ duration: velocity, repeat: Infinity, ease: 'linear' }}
-        className="flex gap-20 items-center"
+      <div
+        className={`marquee-logos ${direction === 'right' ? 'reverse' : ''}`}
+        style={{ animationDuration: `${velocity}s` }}
       >
-        {[...companies, ...companies].map((c, i) => (
-          <span
-            key={i}
-            className="text-4xl md:text-6xl font-[1000] uppercase italic text-green-500 hover:text-black transition-colors cursor-default"
-          >
-            {c}
-          </span>
-        ))}
-      </motion.div>
+        <div className="marquee-logos-track">
+          {[...companies, ...companies].map((c, i) => (
+            <span
+              key={i}
+              className="text-4xl md:text-6xl font-[1000] uppercase italic text-green-500 hover:text-black transition-colors cursor-default mx-10"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
