@@ -1,360 +1,410 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import {
-  Phone, Mail, Globe, MessageCircle
-} from 'lucide-react';
-
-// Right to logo – Global BFSI Learning
-const homeLogo = new URL(
-  '../assets/logo/WhatsApp_Image_2026-03-14_at_3,20,48_PM-removebg-preview-Picsart-AiImageEnhancer.png',
-  import.meta.url
-).href;
+import React, { useState, useEffect } from "react";
 
 const GlobalBFSILanding = () => {
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll();
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const heroScale = useTransform(smoothProgress, [0, 0.2], [1, 0.8]);
-
-  // --- FORM STATE ---
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    qualification: '',
-    status: ''
+    name: "",
+    phone: "",
+    qualification: "",
+    status: "",
   });
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowPopup(true), 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Constructing the Mailto Link with all new fields
-  const mailtoLink = `mailto:info@globalbfsilearning.com?subject=BFSI Consultation Request: ${formData.name}&body=Details:%0D%0AName: ${formData.name}%0D%0APhone: ${formData.phone}%0D%0AQualification: ${formData.qualification}%0D%0AStatus: ${formData.status}`;
+  // Modern Styled Icons
+  const Icons = {
+    Phone: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
+    Whatsapp: () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>,
+    Check: () => <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+    X: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>,
+    Arrow: () => <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  };
+
+  const FormCard = ({ title, subtext, highlight = false }) => (
+    <div className={`relative overflow-hidden p-8 rounded-3xl transition-all duration-500 ${highlight ? 'bg-white shadow-[0_32px_64px_-15px_rgba(0,0,0,0.2)] border border-gray-100' : 'bg-white shadow-xl border border-gray-100'}`}>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-mango/5 rounded-full -mr-16 -mt-16 blur-3xl" />
+      
+      <h3 className="text-2xl font-black text-gray-900 mb-2 leading-tight tracking-tight">{title}</h3>
+      <p className="text-sm text-gray-500 mb-8 font-medium leading-relaxed">{subtext}</p>
+
+      <div className="space-y-4 relative z-10">
+        <div className="group">
+          <input name="name" placeholder="Full Name" onChange={handleChange} className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-forest-green focus:bg-white outline-none transition-all placeholder:text-gray-400 font-medium" />
+        </div>
+        <div className="group">
+          <input name="phone" placeholder="Phone / WhatsApp Number" onChange={handleChange} className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-forest-green focus:bg-white outline-none transition-all placeholder:text-gray-400 font-medium" />
+        </div>
+
+        <select name="qualification" onChange={handleChange} className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-forest-green focus:bg-white outline-none appearance-none font-medium text-gray-600 cursor-pointer">
+          <option>Qualification</option>
+          <option>B.Com</option>
+          <option>BBA / BBM</option>
+          <option>MBA</option>
+          <option>Other</option>
+        </select>
+
+        <select name="status" onChange={handleChange} className="w-full p-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-forest-green focus:bg-white outline-none appearance-none font-medium text-gray-600 cursor-pointer">
+          <option>Current Status</option>
+          <option>Student</option>
+          <option>Job Seeker</option>
+          <option>Working Professional</option>
+        </select>
+
+        <button className="w-full py-5 bg-mango hover:bg-orange-600 text-white font-black rounded-xl transition-all shadow-[0_10px_20px_-5px_rgba(249,115,22,0.4)] uppercase tracking-widest text-sm active:scale-95">
+          Talk to an expert now
+        </button>
+      </div>
+    </div>
+  );
 
   return (
-    <div
-      ref={containerRef}
-      className="bg-[#f0f4f8] text-black font-sans overflow-x-hidden selection:bg-[#ccff00] selection:text-black"
-    >
-      {/* --- SECTION 1: THE HERO --- */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center z-10 px-4 md:px-6 pt-28 md:pt-24 pb-12">
-        {/* Header / Logo area */}
-        <div className="absolute top-4 left-4 right-4 md:top-8 md:left-8 md:right-8 flex items-center justify-start">
-          <div className="flex items-center gap-3 md:gap-4 max-w-full">
-            <img
-              src={homeLogo}
-              alt="Logo"
-              className="w-20 md:w-32 lg:w-40 h-auto object-contain shrink-0"
-            />
-            <div className="flex flex-col items-start justify-center leading-tight">
-              <span className="montserrat-bold-green text-base md:text-2xl lg:text-3xl tracking-wide uppercase text-left">
-                Global BFSI Learning
-              </span>
-              <a
-                href="https://www.globalbfsilearning.com"
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 text-xs md:text-sm font-bold text-zinc-700 break-all text-left mt-1"
-              >
-                <Globe size={14} />
-                www.globalbfsilearning.com
-              </a>
-            </div>
+    <div className="font-sans text-gray-900 bg-[#FAFAFA] selection:bg-mango selection:text-white antialiased">
+      
+      {/* Dynamic Top Bar */}
+      <div className="sticky top-0 z-[60] bg-white/80 backdrop-blur-md border-b border-gray-100 py-3 px-6">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="text-xl font-black tracking-tighter">GLOBAL <span className="text-mango underline decoration-2 underline-offset-4">BFSI</span></div>
+          <div className="hidden md:flex gap-6 items-center">
+            <a href="tel:+919663384594" className="flex items-center gap-2 text-forest-green font-bold text-sm bg-forest-green/5 px-4 py-2 rounded-full hover:bg-forest-green/10 transition-colors">
+              <Icons.Phone /> +91 9663384594
+            </a>
+            <a href="https://wa.me/919663384594" className="flex items-center gap-2 text-white bg-[#25D366] px-5 py-2 rounded-full font-bold text-sm hover:shadow-lg transition-all active:scale-95">
+              <Icons.Whatsapp /> WhatsApp
+            </a>
           </div>
         </div>
-
-        <motion.div
-          style={{ scale: heroScale }}
-          className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-        >
-          <div className="text-left order-2 lg:order-1">
-            <motion.div
-              initial={{ x: -50, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              className="flex items-center gap-2 mb-4 md:mb-6"
-            >
-              <div className="h-[2px] w-8 md:w-12 bg-black"></div>
-              <span className="font-bold tracking-tighter text-xs md:text-sm uppercase">
-                We Build BFSI Professionals Who Stand Out
-              </span>
-            </motion.div>
-
-            <h1 className="text-4xl md:text-6xl lg:text-8xl font-[1000] leading-[0.95] uppercase mb-6 md:mb-8 tracking-tighter">
-              DOMINATE THE <span className="text-[#ccff00] bg-black px-2">BFSI INDUSTRY</span> <br />
-              SHAPE YOUR GLOBAL CAREER
-            </h1>
-
-            <p className="max-w-xl font-bold text-base md:text-xl text-zinc-600 mb-8 md:mb-10 leading-relaxed border-l-4 border-[#ccff00] pl-4 md:pl-6">
-              Unlock elite BFSI expertise, fast-track your career, land high-paying jobs, and grow
-              continuously with our unlimited career support.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6">
-              <button
-                onClick={() => window.open('https://globalbfsilearning.com/', '_blank')}
-                className="border-4 border-black px-6 md:px-8 py-4 md:py-5 rounded-full font-black uppercase text-base md:text-lg hover:bg-black hover:text-white transition-colors"
-              >
-                Explore Training Program
-              </button>
-            </div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="relative order-1 lg:order-2 px-4 md:px-0"
-          >
-            <div className="absolute -inset-2 md:-inset-4 border-4 border-black rounded-[30px] md:rounded-[40px] z-0 translate-x-2 translate-y-2 md:translate-x-4 md:translate-y-4"></div>
-            <img
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070"
-              alt="Corporate Finance"
-              className="relative z-10 w-full h-[300px] md:h-[500px] object-cover rounded-[30px] md:rounded-[40px]"
-            />
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* --- SECTION 2: THE MOVING SLIDER --- */}
-      <div className="bg-[#ccff00] py-6 md:py-10 border-y-[4px] border-black z-30 relative -rotate-1 overflow-hidden">
-        <motion.div
-          className="flex whitespace-nowrap"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
-        >
-          {[1, 2].map((group) => (
-            <div key={group} className="flex items-center">
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Mentor by Industry Experts
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Job-Ready Preparation
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Resume That Gets Interview Calls
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Real Mock Interviews
-              </span>
-              <span className="text-black font-[1000] text-2xl md:text-4xl uppercase mx-10">
-                Continuous Career Guidance
-              </span>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
-      {/* --- SECTION 3: COUNSELLING FORM --- */}
-      <section id="consultation" className="py-20 md:py-40 px-6 bg-black text-white relative">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div className="space-y-8">
-            <h2 className="text-4xl md:text-7xl font-[1000] uppercase leading-none text-[#ccff00]">
-              Struggling to Get <br />
-              Interview Calls <br />
-              for BFSI Jobs?
-            </h2>
+      {/* 1. Hero Section - Refined Glassmorphism */}
+      <section className="relative pt-20 pb-32 px-6 overflow-hidden" style={{backgroundImage: `url("public/assets/logo/bg.avif")`, backgroundSize: 'cover', backgroundPosition: 'center'}} >
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-forest-green/5 blur-[120px] rounded-full -z-10" />
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest-green/10 text-forest-green text-xs font-black uppercase tracking-widest mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-forest-green animate-pulse" /> Premium BFSI Training
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-8 leading-[1.1] tracking-tight">
+              Turn your finance degree into a <span className="text-forest-green">job-ready</span> BFSI career.
+            </h1>
+            <p className="text-xl text-gray-500 mb-10 leading-relaxed font-medium max-w-xl">
+              Become job-ready for investment banking operations | capital markets operations | financial services operations.
+            </p>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+              {[
+                "Industry-expert training",
+                "Resume that gets interviews",
+                "Real mock interview practice",
+                "Placement support"
+              ].map((item, idx) => (
+                <div key={idx} className="flex items-center gap-3 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                  <div className="bg-forest-green text-white p-1 rounded-full"><Icons.Check /></div>
+                  <span className="font-bold text-gray-700 text-sm tracking-tight">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <button className="px-10 py-5 bg-gray-900 text-white font-black rounded-2xl hover:bg-black transition-all shadow-2xl active:scale-95">Book Free Consultation</button>
+            </div>
           </div>
 
-          <div className="bg-white text-black p-8 md:p-12 rounded-[40px] border-b-8 border-r-8 border-[#ccff00]">
-            <h3 className="text-2xl md:text-3xl font-[1000] uppercase mb-8">
-              CLAIM YOUR FREE BFSI CAREER CONSULTATION
-            </h3>
-            <div className="space-y-4">
-              <input name="name" placeholder="YOUR NAME" className="form-ultra" onChange={handleInputChange} />
-              <input name="phone" placeholder="MOBILE NUMBER" className="form-ultra" onChange={handleInputChange} />
-
-              <select name="qualification" className="form-ultra" onChange={handleInputChange}>
-                <option value="">QUALIFICATION</option>
-                <option value="B.Com">B.Com</option>
-                <option value="BBA/BBM">BBA / BBM (Finance)</option>
-                <option value="MBA">MBA (Finance)</option>
-                <option value="M.Com">M.Com</option>
-              </select>
-
-              <select name="status" className="form-ultra" onChange={handleInputChange}>
-                <option value="">CURRENT STATUS</option>
-                <option value="Student">Student</option>
-                <option value="Job Seeker">Job Seeker</option>
-                <option value="Working Professional">Working Professional</option>
-              </select>
-
-              <a
-                href={mailtoLink}
-                className="w-full bg-black text-[#ccff00] py-5 rounded-full font-[1000] text-xl uppercase text-center block hover:scale-95 transition-transform"
-              >
-                Claim Consultation
-              </a>
-            </div>
+          <div className="relative">
+            <div className="absolute inset-0 bg-forest-green rotate-3 rounded-[40px] opacity-5 -z-10 blur-xl" />
+            <FormCard 
+              title="Get free career guidance for BFSI roles" 
+              subtext="Understand BFSI roles, required skills, and how to get interview calls"
+              highlight={true}
+            />
           </div>
         </div>
       </section>
 
-      {/* --- SECTION 4: GLOBAL NETWORK --- */}
-      <section className="py-20 bg-white">
-        <div className="text-center mb-10 px-4">
-          <h2 className="text-3xl md:text-5xl font-[1000] uppercase">
-            🚀 Global Career Opportunities in BFSI Industry
-          </h2>
-        </div>
-        <div className="border-y-4 border-black py-12 bg-zinc-50">
-          <Marquee velocity={35} direction="left" />
-        </div>
-      </section>
-
-      {/* --- SECTION 5: THE METHOD --- */}
-      <section className="py-20 md:py-40 px-6 bg-[#f0f4f8]">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">SMART PATH</h4>
-            <p className="font-bold text-black">
-              Learn what the BFSI industry expects.
-            </p>
+      {/* 2. Problem Hook - Clean Bento Layout */}
+      <section className="py-24 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-black mb-4">Struggling to get interview calls?</h2>
+            <div className="h-1.5 w-24 bg-mango mx-auto rounded-full" />
           </div>
-
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">MOCK DRILLS</h4>
-            <p className="font-bold text-black">
-              Mock Interviews Conducted by BFSI Industry Experts
-            </p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+            {[
+              "Good degree but no practical skills",
+              "Not sure which BFSI role to choose",
+              "Resume not getting shortlisted",
+              "Interviews feel difficult"
+            ].map((item, i) => (
+              <div key={i} className="group p-8 bg-gray-50 rounded-[32px] border border-transparent hover:border-red-100 hover:bg-red-50/30 transition-all duration-300">
+                <div className="text-red-500 mb-6 group-hover:scale-110 transition-transform"><Icons.X /></div>
+                <span className="font-black text-gray-800 leading-snug">{item}</span>
+              </div>
+            ))}
           </div>
-
-          <div className="bg-[#ccff00] border-4 border-black p-8 rounded-[30px]">
-            <h4 className="text-2xl md:text-3xl font-[1000] uppercase mb-4">
-              UNLIMITED CAREER SUPPORT
-            </h4>
-            <p className="font-bold text-black">
-              Guidance and support until you secure a job — and even beyond your first paycheck.
-            </p>
-          </div>
+          <p className="text-2xl text-center font-black text-forest-green italic max-w-3xl mx-auto leading-relaxed">
+            "We prepare you with the right skills and support to start getting interview calls."
+          </p>
         </div>
       </section>
 
-      {/* --- FOOTER --- */}
-      <footer className="bg-black text-white py-20 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
-          <div className="flex flex-col gap-5 w-full md:w-auto">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-full text-black">
-                <Phone size={24} />
+      {/* 3. BFSI Opportunity - High Tech Corporate Look */}
+      <section className="py-24 bg-gray-50 border-y border-gray-200/50">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h2 className="text-3xl font-black mb-16 tracking-tight">Global demand for BFSI professionals is rising fast</h2>
+          <div className="flex flex-wrap justify-center items-center gap-16 md:gap-24 opacity-40 grayscale contrast-125 mb-20">
+            <span className="text-3xl font-black tracking-[10px]">GOLDMAN SACHS</span>
+            <span className="text-3xl font-black tracking-[10px]">JPMORGAN</span>
+            <span className="text-3xl font-black tracking-[10px]">CITI</span>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {['Investment Banking', 'Capital Markets', 'Financial Services', 'Corporate Actions'].map(text => (
+              <div key={text} className="p-8 bg-white shadow-xl shadow-gray-200/50 rounded-2xl font-black text-forest-green border-t-4 border-mango hover:-translate-y-2 transition-all cursor-default">
+                {text}
               </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Phone</p>
-                <span className="text-2xl font-black">7500611247</span>
-              </div>
-            </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-[#25D366] rounded-full text-white">
-                <MessageCircle size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">WhatsApp</p>
-                <a
-                  href="https://wa.me/917500611247"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-2xl font-black hover:text-[#ccff00] transition-colors"
-                >
-                  Chat on WhatsApp
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-white rounded-full text-black">
-                <Mail size={24} />
-              </div>
-              <div>
-                <p className="text-sm uppercase tracking-wide text-zinc-300 font-bold">Email</p>
-                <a
-                  href="mailto:info@globalbfsilearning.com"
-                  className="text-lg md:text-xl font-black break-all hover:text-[#ccff00] transition-colors"
-                >
-                  info@globalbfsilearning.com
-                </a>
-              </div>
+      {/* 4 & 5. Solution & Smart Path - Modern Alternating Grid */}
+      <section className="py-32 px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
+          <div>
+            <h2 className="text-6xl font-black mb-4 text-mango italic lowercase tracking-tighter">smart path</h2>
+            <h3 className="text-4xl font-black mb-10 text-gray-900">How Global BFSI Learning makes you job-ready</h3>
+            <div className="grid gap-6">
+              {[
+                "Industry-expert designed training",
+                "Practical financial market learning",
+                "Understanding real BFSI roles",
+                "Resume writing & mock interviews",
+                "Job search & unlimited placement support",
+                "Build skills and get job-ready"
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-4 group">
+                  <div className="bg-forest-green/10 text-forest-green p-1.5 rounded-lg group-hover:bg-forest-green group-hover:text-white transition-colors"><Icons.Check /></div> 
+                  <span className="font-bold text-gray-700">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
+          <div className="bg-forest-green p-12 rounded-[40px] shadow-2xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32" />
+            <h3 className="text-3xl font-black mb-10 text-white leading-tight">Learn what the BFSI industry actually expects</h3>
+            <ul className="space-y-8 relative z-10">
+              {[
+                { n: "1", h: "Job-specific learning", p: "Focused on what you do at the desk." },
+                { n: "2", h: "No unnecessary theory", p: "Cutting the fluff, keeping the core." },
+                { n: "3", h: "Focus on employability", p: "Skills that get you hired immediately." }
+              ].map((item, i) => (
+                <li key={i} className="flex gap-6">
+                  <span className="w-12 h-12 bg-mango text-white rounded-2xl flex items-center justify-center shrink-0 font-black text-xl shadow-lg rotate-3 italic">{item.n}</span>
+                  <div>
+                    <h4 className="font-black text-xl text-white mb-1 uppercase tracking-tight">{item.h}</h4>
+                    <p className="text-white/70 font-medium">{item.p}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
 
-          <div className="text-left md:text-right flex flex-col items-start md:items-end w-full md:w-auto">
-            <p className="font-black text-2xl md:text-4xl uppercase mb-8 max-w-2xl">
-              Ready to Take the Next Step in Your BFSI Career?
-            </p>
-
-            <div className="flex items-center gap-6">
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/271/271220.png"
-                className="w-12 h-12 invert animate-pulse hidden md:block"
-                alt="point"
+      {/* 6. Program Section - Dark Professional */}
+      <section className="py-32 bg-gray-900 text-white overflow-hidden relative">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 relative z-10">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight">Investment Banking & Capital Market Operations</h2>
+            <p className="text-mango font-black mb-10 text-xl inline-block border-b-4 border-mango pb-2 tracking-tight uppercase">What you will learn:</p>
+            <ul className="grid gap-6">
+              {[
+                "Strong foundation in Investment Banking, Financial Services & Capital Markets",
+                "Understanding Financial Markets, Key Players & Trading Processes",
+                "Trade Life Cycle of Equities (Exchange-traded)",
+                "Clearing & Settlement Processes in Capital Markets",
+                "In-depth learning of Corporate Actions in Investment Banking",
+                "Real-world Case Studies for practical role understanding"
+              ].map((item, i) => (
+                <li key={i} className="flex gap-4 items-start group">
+                  <div className="mt-1.5 w-3 h-3 bg-mango rounded-full shrink-0 group-hover:scale-125 transition-transform" /> 
+                  <span className="text-gray-300 font-bold leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-12 p-6 rounded-2xl border-l-8 border-mango bg-white/5 font-black italic text-lg text-white">
+              "Designed to make you job-ready from day 1"
+            </div>
+          </div>
+          <div className="relative">
+             <div className="absolute -inset-4 bg-white/10 blur-2xl rounded-[40px]" />
+             <FormCard 
+                title="Not sure which BFSI role is right for you?" 
+                subtext="Get professional guidance on career paths and salary expectations."
               />
+          </div>
+        </div>
+      </section>
 
-              <button
-                onClick={() => window.open('https://globalbfsilearning.com/', '_blank')}
-                className="bg-[#ccff00] text-black px-12 py-6 rounded-full font-[1000] text-2xl uppercase hover:scale-110 transition-transform shadow-xl"
-              >
-                ENROLL NOW
-              </button>
+      {/* 7. Process Visual Flow - Dynamic Timeline */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <h2 className="text-center text-xs font-black uppercase tracking-[10px] text-gray-400 mb-20">Our Roadmap to Success</h2>
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+            {[
+              { n: "01", t: "Career Clarity" },
+              { n: "02", t: "Learning" },
+              { n: "03", t: "Resume" },
+              { n: "04", t: "Mock Interviews" },
+              { n: "05", t: "Placement Support" }
+            ].map((step, i) => (
+              <div key={i} className="relative text-center group">
+                <div className="w-20 h-20 mx-auto bg-forest-green text-white rounded-[2rem] flex items-center justify-center font-black text-2xl mb-6 shadow-2xl group-hover:rotate-12 transition-transform duration-300">
+                  {step.n}
+                </div>
+                <span className="font-black text-xs uppercase tracking-widest text-gray-900">{step.t}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Differentiation Table - Ultra Modern Table */}
+      <section className="py-32 bg-gray-50 px-6">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-black text-center mb-16">Why Global BFSI Learning stands out</h2>
+          <div className="bg-white rounded-[40px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] overflow-hidden border border-gray-100">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="bg-gray-900 text-white">
+                  <th className="p-8 font-black uppercase text-xs tracking-[4px]">Feature</th>
+                  <th className="p-8 font-black uppercase text-xs tracking-[4px]">Others</th>
+                  <th className="p-8 font-black uppercase text-xs tracking-[4px] text-mango">Global BFSI Learning</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {[
+                  ["Curriculum", "Theory-focused learning", "Practical, industry-oriented training"],
+                  ["Mentorship", "Limited guidance", "Mentorship from BFSI industry experts"],
+                  ["Interview Prep", "No structured interview prep", "Mock interviews based on real scenarios"],
+                  ["Career Path", "No career direction", "Clear understanding of BFSI roles"],
+                  ["Outcomes", "No placement focus", "Job search support & placement assistance"],
+                  ["Focus", "Learning only", "Skill development + job-ready preparation"]
+                ].map((row, i) => (
+                  <tr key={i} className="hover:bg-gray-50/50 transition-colors group">
+                    <td className="p-8 font-black text-gray-400 text-[10px] uppercase tracking-widest">{row[0]}</td>
+                    <td className="p-8 text-gray-500 font-medium">{row[1]}</td>
+                    <td className="p-8 font-black text-forest-green bg-forest-green/5 group-hover:bg-forest-green/10 transition-colors">{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-center mt-16 font-black text-3xl text-mango leading-tight">
+            Not just training — resume & interview support to help you get hired.
+          </p>
+        </div>
+      </section>
+
+      {/* 9. WhatsApp Conversion Block - Action Oriented */}
+      <section className="py-24 bg-forest-green text-white text-center relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white/10 to-transparent pointer-events-none" />
+        <h2 className="text-4xl md:text-5xl font-black mb-8 relative z-10">Not sure which BFSI career suits you?</h2>
+        <div className="flex flex-wrap justify-center gap-10 mb-16 relative z-10">
+          {["Get Clarity", "Know Your Path", "Get Expert Guidance"].map((item, idx) => (
+            <span key={idx} className="flex items-center gap-3 font-black text-sm uppercase tracking-widest bg-white/10 px-6 py-3 rounded-full border border-white/20">
+              <Icons.Check /> {item}
+            </span>
+          ))}
+        </div>
+        <a href="https://wa.me/919663384594" className="inline-flex items-center gap-4 px-12 py-6 bg-white text-forest-green font-black rounded-3xl shadow-[0_20px_40px_-10px_rgba(255,255,255,0.3)] hover:scale-105 hover:-rotate-2 transition-all uppercase tracking-widest relative z-10">
+           <Icons.Whatsapp /> Chat on WhatsApp Now
+        </a>
+      </section>
+
+      {/* 10. Final CTA - Minimalist & Bold */}
+      <section className="py-32 px-6 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <span className="text-gray-400 font-black uppercase tracking-[12px] mb-6 block">Foundation to Finance</span>
+          <h3 className="text-5xl md:text-7xl font-black mb-20 tracking-tighter">Ready to take the next step?</h3>
+          <div className="max-w-2xl mx-auto">
+            <FormCard 
+              title="Book Free Career Consultation" 
+              subtext="Last few slots available for this month's cohort."
+              highlight={true}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - Elegant Dark */}
+      <footer className="bg-gray-900 text-white py-20 px-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+          <div>
+            <div className="text-3xl font-black tracking-tighter mb-4">GLOBAL <span className="text-mango">BFSI</span></div>
+            <p className="text-gray-500 font-medium">Expert training for future financial leaders.</p>
+          </div>
+          <div className="flex flex-col md:flex-row gap-12 text-center md:text-left">
+            <div className="flex flex-col gap-3">
+              <span className="text-gray-500 font-black uppercase text-[10px] tracking-widest">Connect</span>
+              <a href="tel:+919663384594" className="text-xl font-bold hover:text-mango transition-colors">+91 9663384594</a>
+              <a href="mailto:info@globalbfsi.com" className="text-xl font-bold hover:text-mango transition-colors underline underline-offset-8">info@globalbfsi.com</a>
             </div>
           </div>
+        </div>
+        <div className="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/5 text-center text-gray-600 text-sm font-bold">
+          © 2026 GLOBAL BFSI LEARNING. ALL RIGHTS RESERVED.
         </div>
       </footer>
 
+      {/* Sticky Quick Actions */}
+      <div className="fixed bottom-8 right-8 flex flex-col gap-4 z-[100]">
+        <a href="tel:+919663384594" className="w-16 h-16 bg-gray-900 text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+          <Icons.Phone />
+        </a>
+        <a href="https://wa.me/919663384594" className="w-16 h-16 bg-[#25D366] text-white rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all">
+          <Icons.Whatsapp />
+        </a>
+      </div>
+
+      {/* Modern Pop-up - Centered & Glassy */}
+      {showPopup && (
+        <div className="fixed inset-0 bg-gray-900/40 backdrop-blur-xl z-[200] flex items-center justify-center p-6 transition-all animate-in fade-in duration-500">
+          <div className="bg-white rounded-[40px] max-w-xl w-full relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] animate-in zoom-in duration-300">
+            <button onClick={() => setShowPopup(false)} className="absolute top-6 right-6 text-gray-400 hover:text-black z-50 transition-colors">
+              <Icons.X />
+            </button>
+            <div className="p-2">
+                <FormCard 
+                title="Get free career guidance" 
+                subtext="Start your journey in finance with experts"
+                />
+            </div>
+          </div>
+        </div>
+      )}
+
       <style jsx>{`
-        .form-ultra {
-          width: 100%;
-          background: #f1f5f9;
-          border: 3px solid #000;
-          padding: 1rem;
-          border-radius: 0.75rem;
-          font-weight: 800;
-          text-transform: uppercase;
-          outline: none;
-        }
-
-        .form-ultra:focus {
-          background: white;
-          border-color: #ccff00;
-        }
-
-        .montserrat-bold-green {
-          font-family: 'Montserrat', sans-serif;
-          font-weight: 900;
-          color: #006400;
-        }
+        .text-forest-green { color: #054a29; }
+        .bg-forest-green { background-color: #054a29; }
+        .border-forest-green { border-color: #054a29; }
+        .text-mango { color: #f97316; }
+        .bg-mango { background-color: #f97316; }
+        .border-mango { border-color: #f97316; }
+        
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes zoom-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .animate-in { animation: var(--tw-duration, 300ms) ease-out both; }
+        .fade-in { animation-name: fade-in; }
+        .zoom-in { animation-name: zoom-in; }
       `}</style>
-    </div>
-  );
-};
-
-const Marquee = ({ velocity, direction }) => {
-  const companies = [
-    'Citi',
-    'Goldman Sachs',
-    'Morgan Stanley',
-    'JPMorgan',
-    'HDFC Bank',
-    'HSBC',
-    'Standard Chartered',
-    'Nomura',
-    'Barclays'
-  ];
-
-  return (
-    <div className="flex whitespace-nowrap overflow-hidden">
-      <motion.div
-        animate={{ x: direction === 'left' ? [0, -1000] : [-1000, 0] }}
-        transition={{ duration: velocity, repeat: Infinity, ease: 'linear' }}
-        className="flex gap-20 items-center"
-      >
-        {[...companies, ...companies].map((c, i) => (
-          <span
-            key={i}
-            className="text-4xl md:text-6xl font-[1000] uppercase italic text-green-500 hover:text-black transition-colors cursor-default"
-          >
-            {c}
-          </span>
-        ))}
-      </motion.div>
     </div>
   );
 };
