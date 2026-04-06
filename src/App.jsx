@@ -23,11 +23,12 @@ import Accountability from './pages/Accountability';
 
 function App() {
   const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   return (
     <div className="App bg-[#FDFDFD] min-h-screen">
       <ScrollToTop />
-      {/* <Navigation /> */}
+      {!isHomePage && <Navigation />}
       <AnimatePresence mode="wait">
         <motion.div
           key={location.pathname}
@@ -55,7 +56,7 @@ function App() {
           </Routes>
         </motion.div>
       </AnimatePresence>
-      {/* <Footer /> */}
+      {!isHomePage && <Footer />}
     </div>
   );
 }

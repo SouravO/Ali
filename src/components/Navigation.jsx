@@ -128,7 +128,7 @@ const Navigation = () => {
 
       {/* MOBILE MENU - FULL SCREEN BRUTALISM */}
       {mobileMenuOpen && (
-        <div className={`lg:hidden absolute top-full left-4 right-4 bg-white ${brutalBorder} ${brutalShadowLarge} mt-4 p-6 z-[100]`}>
+        <div className={`lg:hidden absolute top-full left-4 right-4 bg-white ${brutalBorder} ${brutalShadowLarge} mt-4 p-6 z-[100] max-h-[80vh] overflow-y-auto`}>
           <div className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <Link
@@ -140,10 +140,26 @@ const Navigation = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Mobile Services Sub-items */}
+            <div className="flex flex-col gap-2 mt-2">
+              <span className="text-xs font-black uppercase opacity-50 italic">Services</span>
+              {servicesSubItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="text-lg font-black uppercase italic border-l-4 border-black pl-4 py-1"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+
             <Link 
               to="/support"
               onClick={() => setMobileMenuOpen(false)}
-              className={`bg-[#FF00FF] text-white p-4 text-center font-black uppercase italic text-xl ${brutalBorder}`}
+              className={`bg-[#FF00FF] text-white p-4 text-center font-black uppercase italic text-xl ${brutalBorder} mt-4`}
             >
               Donate Now
             </Link>

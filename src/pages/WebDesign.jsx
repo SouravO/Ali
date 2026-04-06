@@ -58,7 +58,7 @@ export default function KineticEcosystem() {
         <div className="relative z-10 text-center max-w-4xl">
         
           
-          <h1 className="text-[12vw] md:text-[8vw] font-serif leading-[0.8] tracking-tighter text-white mb-12">
+          <h1 className="text-[14vw] sm:text-[12vw] md:text-[8vw] font-serif leading-[0.8] tracking-tighter text-white mb-12">
            {/* India's Next Legend Legaue */}
            India's Next <br /> Legend League.
           </h1>
@@ -201,8 +201,8 @@ function ScrollCard({ step, index, total }) {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      className={`sticky w-full p-12 md:p-24 border border-black/5 ${step.color} ${step.text} flex flex-col justify-between group transition-all duration-700 min-h-[500px] md:min-h-[600px] shadow-2xl overflow-hidden`}
-      style={{ top: `${100 + (index * 40)}px` }}
+      className={`sticky w-full p-8 md:p-24 border border-black/5 ${step.color} ${step.text} flex flex-col justify-between group transition-all duration-700 min-h-[400px] md:min-h-[600px] shadow-2xl overflow-hidden`}
+      style={{ top: `${80 + (index * 30)}px` }}
     >
       <div className="flex justify-between items-start z-10">
         <div className="p-4 bg-white/10 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform">
@@ -212,8 +212,8 @@ function ScrollCard({ step, index, total }) {
       </div>
       
       <div className="max-w-3xl z-10">
-        <h3 className="text-5xl md:text-8xl font-serif italic mb-8 leading-none tracking-tighter">{step.title}</h3>
-        <p className="opacity-60 text-lg md:text-xl leading-relaxed font-light max-w-xl">{step.desc}</p>
+        <h3 className="text-4xl sm:text-5xl md:text-8xl font-serif italic mb-8 leading-none tracking-tighter">{step.title}</h3>
+        <p className="opacity-60 text-base md:text-xl leading-relaxed font-light max-w-xl">{step.desc}</p>
       </div>
 
       <div className="absolute right-[-10%] bottom-[-5%] text-[30vw] font-serif italic opacity-[0.03] pointer-events-none select-none">
