@@ -9,6 +9,14 @@ import {
 
 export default function KineticEcosystem() {
   const containerRef = useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   const engagementSteps = [
     {
@@ -97,7 +105,7 @@ export default function KineticEcosystem() {
         
         <div className="space-y-[10vh]">
           {engagementSteps.map((step, i) => (
-            <ScrollCard key={i} step={step} index={i} total={engagementSteps.length} />
+            <ScrollCard key={i} step={step} index={i} total={engagementSteps.length} isMobile={isMobile} />
           ))}
         </div>
       </section>
@@ -195,14 +203,14 @@ export default function KineticEcosystem() {
 }
 
 // REFACTORED SUB-COMPONENTS
-function ScrollCard({ step, index, total }) {
+function ScrollCard({ step, index, total, isMobile }) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      className={`sticky w-full p-8 md:p-24 border border-black/5 ${step.color} ${step.text} flex flex-col justify-between group transition-all duration-700 min-h-[400px] md:min-h-[600px] shadow-2xl overflow-hidden`}
-      style={{ top: `${80 + (index * 30)}px` }}
+      className={`${!isMobile ? 'sticky' : 'relative'} w-full p-8 md:p-24 border border-black/5 ${step.color} ${step.text} flex flex-col justify-between group transition-all duration-700 min-h-[400px] md:min-h-[600px] shadow-2xl overflow-hidden`}
+      style={{ top: !isMobile ? `${80 + (index * 30)}px` : 'auto' }}
     >
       <div className="flex justify-between items-start z-10">
         <div className="p-4 bg-white/10 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform">

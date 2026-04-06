@@ -76,14 +76,12 @@ const GlobalBFSILanding = () => {
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-forest-green rounded-xl flex items-center justify-center text-white font-bold shadow-lg shadow-forest-green/20">
-              G
-            </div>
-            <span className="text-xl font-bold tracking-tighter uppercase">
-              Global <span className="text-mango">BFSI</span>
+          
+            <span className=" font-bold tracking-tighter uppercase">
+              <img src="public/assets/logo/Logos.png" alt="Global BFSI Logo" className="h-25 w-auto" />
             </span>
           </div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-10">
             <div className="flex gap-10 text-[11px] font-bold uppercase tracking-widest text-gray-500">
@@ -361,7 +359,7 @@ const GlobalBFSILanding = () => {
       {/* The Program: High-End Index */}
       <section className="py-20 md:py-32 bg-white px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-20 items-start">
-          <div className="lg:col-span-5 sticky top-32">
+          <div className="lg:col-span-5 lg:sticky lg:top-32">
             <span className="text-forest-green font-bold text-[11px] uppercase tracking-[0.4em] mb-6 block">
               The Curriculum
             </span>
@@ -551,11 +549,9 @@ const GlobalBFSILanding = () => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-24">
           <div>
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-8 h-8 bg-forest-green rounded-lg flex items-center justify-center text-white font-bold">
-                G
-              </div>
+          
               <span className="text-xl font-bold tracking-tight">
-                GLOBAL <span className="text-mango">BFSI</span>
+                <img src="public/assets/logo/Logos.png" alt="" />
               </span>
             </div>
             <p className="text-gray-400 font-medium leading-relaxed">
