@@ -4,10 +4,17 @@
   --font-serif: "Instrument Serif", serif;
   --font-sans: "Archivo", sans-serif;
   --font-mono: "Space Grotesk", monospace;
+  
+  --color-forest-green: #054a29;
+  --color-mango: #f97316;
 }
 
 body {
   @apply antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 ::selection {
